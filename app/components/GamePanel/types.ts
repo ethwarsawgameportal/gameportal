@@ -5,6 +5,8 @@ export interface MarketItem {
   difficulty: "easy" | "medium" | "hard";
   withOtherPlayer: boolean;
   gradient: string;
+  backgroud: string;
+  isComingSoon: boolean;
 }
 
 export const MARKET_ITEMS: MarketItem[] = [
@@ -16,6 +18,8 @@ export const MARKET_ITEMS: MarketItem[] = [
     difficulty: "medium",
     withOtherPlayer: false,
     gradient: "from-emerald-200 via-cyan-200 to-blue-200",
+    backgroud: "explorer/Tetris.png",
+    isComingSoon: false,
   },
   {
     id: 2,
@@ -25,6 +29,8 @@ export const MARKET_ITEMS: MarketItem[] = [
     difficulty: "easy",
     withOtherPlayer: true,
     gradient: "from-violet-200 via-purple-200 to-fuchsia-200",
+    backgroud: "explorer/TicTacToe.png",
+    isComingSoon: false,
   },
   {
     id: 3,
@@ -34,6 +40,8 @@ export const MARKET_ITEMS: MarketItem[] = [
     difficulty: "hard",
     withOtherPlayer: true,
     gradient: "from-indigo-200 via-blue-200 to-cyan-200",
+    backgroud: "explorer/Chess.png",
+    isComingSoon: true,
   },
   {
     id: 4,
@@ -43,6 +51,8 @@ export const MARKET_ITEMS: MarketItem[] = [
     difficulty: "medium",
     withOtherPlayer: true,
     gradient: "from-rose-200 via-pink-200 to-purple-200",
+    backgroud: "explorer/Checkers.png",
+    isComingSoon: true,
   },
   {
     id: 5,
@@ -52,5 +62,7 @@ export const MARKET_ITEMS: MarketItem[] = [
     difficulty: "hard",
     withOtherPlayer: true,
     gradient: "from-amber-200 via-yellow-200 to-orange-200",
+    backgroud: "explorer/Go.png",
+    isComingSoon: true,
   },
 ];

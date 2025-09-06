@@ -21,7 +21,7 @@ const MainContent: React.FC<MainContentProps> = ({ open, filteredItems }) => {
       </h1>
       {filteredItems.length === 0 ? (
         <div className="text-sm text-slate-500">
-          Brak wyników — zmień filtry lub zapytanie.
+          No results — change filters or query.
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">

@@ -4,11 +4,12 @@ import PlaceholderHeader from "./PlaceholderHeader";
 import FilterToggleButton from "./FilterToggleButton";
 import Sidebar from "./Sidebar";
 import MainContent from "./MainContent";
+import Headers from "../Header";
 
 export const DappExplorePage: React.FC = () => {
   const [open, setOpen] = useState(true);
   const [query, setQuery] = useState("");
-  const [onlyWithOther, setOnlyWithOther] = useState(true);
+  const [onlyWithOther, setOnlyWithOther] = useState(false);
   const [levels, setLevels] = useState<{
     [K in MarketItem["difficulty"]]: boolean;
   }>({
@@ -44,7 +45,8 @@ export const DappExplorePage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900 text-slate-900 dark:text-white">
-      <PlaceholderHeader />
+      {/* <PlaceholderHeader /> */}
+      <Headers />
 
       <FilterToggleButton open={open} onOpen={() => setOpen(true)} />
 
