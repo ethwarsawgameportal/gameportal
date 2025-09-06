@@ -14,22 +14,13 @@ import {
   ChevronLeft,
   ChevronRight,
   CheckCircle2,
+  Wallet,
 } from "lucide-react";
 
-// If you use shadcn/ui in your stack, the imports below will map automatically in ChatGPT preview.
-// In a real project, ensure shadcn/ui is installed & configured.
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-/**
- * Landing page for a decentralized app on Base (React + TSX, Node/TS5-ready)
- * - Mobile-first, responsive, pastel/gradient, slight futurism
- * - Sections: Hero, About/Description, Carousel, How it works, Roadmap, Community, Footer
- * - No real actions wired yet; CTA is placeholder
- */
-
-// Simple placeholder SVG logo
 const Logo: React.FC<{ className?: string }> = ({ className }) => (
   <svg
     viewBox="0 0 200 200"
@@ -305,7 +296,7 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            Decentralized Future on Base
+            Game Portal on Base
           </motion.h1>
 
           <motion.p
@@ -327,9 +318,6 @@ const Hero: React.FC = () => {
           >
             <Button size="lg" className="gap-2 text-base">
               Join in <ArrowRight className="w-5 h-5" />
-            </Button>
-            <Button size="lg" variant="secondary" className="gap-2 text-base">
-              Docs <FileText className="w-5 h-5" />
             </Button>
           </motion.div>
 
@@ -669,7 +657,7 @@ const Footer: React.FC = () => (
       <div className="flex items-center gap-3">
         <Logo className="w-8 h-8" />
         <span className="text-sm text-slate-500">
-          © 2025 Decentralized Future • All rights reserved
+          © 2025 Game Portal • All rights reserved
         </span>
       </div>
       <div className="flex items-center gap-4 text-sm">
@@ -692,32 +680,15 @@ const Header: React.FC = () => (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       <div className="flex items-center gap-3">
         <Logo className="w-8 h-8" />
-        <span className="font-semibold tracking-tight">
-          Decentralized Future
-        </span>
+        <span className="font-semibold tracking-tight">Game Portal</span>
       </div>
-      <nav className="hidden sm:flex items-center gap-6 text-sm text-slate-600 dark:text-slate-300">
-        <a href="#about" className="hover:text-slate-900 dark:hover:text-white">
-          About
-        </a>
-        <a href="#how" className="hover:text-slate-900 dark:hover:text-white">
-          How it works
-        </a>
-        <a
-          href="#roadmap"
-          className="hover:text-slate-900 dark:hover:text-white"
-        >
-          Roadmap
-        </a>
-        <a
-          href="#community"
-          className="hover:text-slate-900 dark:hover:text-white"
-        >
-          Community
-        </a>
-      </nav>
+
       <Button className="gap-2">
         Launch App <ArrowRight className="w-4 h-4" />
+      </Button>
+
+      <Button className="gap-2">
+        Connect Wallet <Wallet className="w-4 h-4" />
       </Button>
     </div>
   </header>
