@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from "react";
 import { MarketItem, MARKET_ITEMS } from "./types";
-import PlaceholderHeader from "./PlaceholderHeader";
 import FilterToggleButton from "./FilterToggleButton";
 import Sidebar from "./Sidebar";
 import MainContent from "./MainContent";
