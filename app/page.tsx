@@ -24,6 +24,45 @@ import { Icon } from "./components/DemoComponents";
 import { Home } from "./components/DemoComponents";
 import { Features } from "./components/DemoComponents";
 
+// Correct Civic Auth imports
+import { useUser, UserButton } from "@civic/auth/react";
+
+// Civic Auth Component using the Next.js plugin
+function CivicAuth() {
+  const { user, isLoading } = useUser();
+
+  if (user) {
+    return (
+      <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 px-3 py-2 bg-green-100 dark:bg-green-900 rounded-lg">
+          <Icon name="check" size="sm" className="text-green-600 dark:text-green-400" />
+          <span className="text-sm font-medium text-green-800 dark:text-green-300">
+            Identity Verified
+          </span>
+        </div>
+        <UserButton />
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center">
+      {isLoading ? (
+        <Button
+          variant="outline"
+          size="sm"
+          disabled
+          className="text-[var(--app-accent)] border-[var(--app-accent)]"
+        >
+          Loading...
+        </Button>
+      ) : (
+        <UserButton />
+      )}
+    </div>
+  );
+}
+
 export default function App() {
   const { setFrameReady, isFrameReady, context } = useMiniKit();
   const [frameAdded, setFrameAdded] = useState(false);
@@ -73,26 +112,34 @@ export default function App() {
   return (
     <div className="flex flex-col min-h-screen font-sans text-[var(--app-foreground)] mini-app-theme from-[var(--app-background)] to-[var(--app-gray)]">
       <div className="w-full max-w-md mx-auto px-4 py-3">
-        <header className="flex justify-between items-center mb-3 h-11">
-          <div>
-            <div className="flex items-center space-x-2">
-              <Wallet className="z-10">
-                <ConnectWallet>
-                  <Name className="text-inherit" />
-                </ConnectWallet>
-                <WalletDropdown>
-                  <Identity className="px-4 pt-3 pb-2" hasCopyAddressOnClick>
-                    <Avatar />
-                    <Name />
-                    <Address />
-                    <EthBalance />
-                  </Identity>
-                  <WalletDropdownDisconnect />
-                </WalletDropdown>
-              </Wallet>
+        <header className="flex flex-col space-y-3 mb-4">
+          {/* Top row with wallet and save frame button */}
+          <div className="flex justify-between items-center h-11">
+            <div>
+              <div className="flex items-center space-x-2">
+                <Wallet className="z-10">
+                  <ConnectWallet>
+                    <Name className="text-inherit" />
+                  </ConnectWallet>
+                  <WalletDropdown>
+                    <Identity className="px-4 pt-3 pb-2" hasCopyAddressOnClick>
+                      <Avatar />
+                      <Name />
+                      <Address />
+                      <EthBalance />
+                    </Identity>
+                    <WalletDropdownDisconnect />
+                  </WalletDropdown>
+                </Wallet>
+              </div>
             </div>
+            <div>{saveFrameButton}</div>
           </div>
-          <div>{saveFrameButton}</div>
+          
+          {/* Civic authentication row */}
+          <div className="flex justify-center">
+            <CivicAuth />
+          </div>
         </header>
 
         <main className="flex-1">
