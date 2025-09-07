@@ -1,4 +1,9 @@
+
 import React, { useState } from "react";
+
+import React from "react";
+import Image from "next/image";
+
 import { MarketItem } from "./types";
 import { twMerge } from "tailwind-merge";
 import GameModal from "./GameModal";
