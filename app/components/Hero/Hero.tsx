@@ -102,6 +102,13 @@ const Hero: React.FC = () => {
             >
               Join in <ArrowRight className="w-5 h-5" />
             </Button>
+            <Button
+              size="lg"
+              className="gap-2 text-base"
+              onClick={() => (window.location.href = "/leaderboard")}
+            >
+              Leaderboard <ArrowRight className="w-5 h-5" />
+            </Button>
           </motion.div>
 
           <motion.div

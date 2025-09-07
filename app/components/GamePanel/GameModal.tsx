@@ -43,7 +43,7 @@ const GameModal: React.FC<GameModalProps> = ({ item, isOpen, onClose }) => {
   // Check if user has used their free game
   useEffect(() => {
     if (user) {
-      const freeGameUsed = getCookie(`freeGameUsed1_${user.id}`);
+      const freeGameUsed = getCookie(`freeGameUsed2_${user.id}`);
       setHasUsedFreeGame(!!freeGameUsed);
     }
   }, [user]);
@@ -83,7 +83,7 @@ const GameModal: React.FC<GameModalProps> = ({ item, isOpen, onClose }) => {
     } else {
       // Mark free game as used if this is their first game
       if (canPlayForFree) {
-        setCookie(`freeGameUsed1_${user.id}`, "true", 365); // Expires in 1 year
+        setCookie(`freeGameUsed2_${user.id}`, "true", 365); // Expires in 1 year
         setHasUsedFreeGame(true);
       }
 
