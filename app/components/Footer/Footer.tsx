@@ -10,7 +10,7 @@ const Footer: React.FC = () => (
           © 2025 Game Portal • All rights reserved
         </span>
       </div>
-      <div className="flex items-center gap-4 text-sm">
+      {/* <div className="flex items-center gap-4 text-sm">
         <a className="hover:underline" href="#">
           Twitter
         </a>
@@ -20,7 +20,7 @@ const Footer: React.FC = () => (
         <a className="hover:underline" href="#">
           Docs
         </a>
-      </div>
+      </div> */}
     </div>
   </footer>
 );

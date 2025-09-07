@@ -34,9 +34,9 @@ const LandingDappOnBase: React.FC = () => {
       <SectionAnchor id="how">
         <HowItWorks />
       </SectionAnchor>
-      <SectionAnchor id="roadmap">
+      {/* <SectionAnchor id="roadmap">
         <Roadmap />
-      </SectionAnchor>
+      </SectionAnchor> */}
       <SectionAnchor id="community">
         <Community />
       </SectionAnchor>

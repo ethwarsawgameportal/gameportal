@@ -17,28 +17,28 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 const FEATURE_CARDS = [
   {
     icon: <Shield className="w-6 h-6" aria-hidden />,
-    title: "Self-Custody",
-    text: "No intermediaries. Two clicks to sign and you're live on Base.",
+    title: "Security",
+    text: "All transactions and data are secured by decentralized blockchain network.",
   },
   {
     icon: <Zap className="w-6 h-6" aria-hidden />,
-    title: "Low Fees",
-    text: "L2 scalability on Base keeps transactions fast and cost‑effective.",
+    title: "Play & Earn",
+    text: "Participate in games and earn real cryptocurrency rewards.",
   },
   {
     icon: <Globe className="w-6 h-6" aria-hidden />,
-    title: "Open & Borderless",
-    text: "Accessible anywhere. Compose with the broader onchain ecosystem.",
+    title: "Accessibility",
+    text: "Play from anywhere in the world, 24/7, without restrictions.",
   },
   {
     icon: <Gauge className="w-6 h-6" aria-hidden />,
-    title: "Performance",
-    text: "Optimistic throughput and crisp UX with instant feedback.",
+    title: "Game Tickets",
+    text: "Purchase tickets and use them to participate in various games.",
   },
   {
     icon: <LinkIcon className="w-6 h-6" aria-hidden />,
-    title: "Composable",
-    text: "Smart contracts interoperate—plug your modules like Lego bricks.",
+    title: "Decentralized Database",
+    text: "Your data and results are safely stored in distributed databases.",
   },
 ];
 
@@ -73,47 +73,41 @@ const FeatureCarousel: React.FC = () => {
             </div>
 
             <div className="relative h-44 sm:h-36">
-              <AnimatePresence initial={false}>
+              <AnimatePresence initial={false} mode="wait">
                 <motion.div
                   key={index}
                   initial={{ x: 40, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   exit={{ x: -40, opacity: 0 }}
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  className="absolute inset-0 grid grid-cols-1 sm:grid-cols-3 gap-4"
+                  className="absolute inset-0"
                 >
-                  {[0, 1, 2].map((offset) => {
-                    const item = slides[(index + offset) % slides.length];
-                    return (
-                      <motion.div
-                        key={offset}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: offset * 0.1 }}
-                        whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                      >
-                        <Card className="shadow-sm">
-                          <CardHeader className="pb-2">
-                            <CardTitle className="flex items-center gap-2 text-base">
-                              <motion.span
-                                className="rounded-lg p-2 bg-slate-100 dark:bg-slate-800"
-                                whileHover={{ rotate: 5, scale: 1.1 }}
-                                transition={{ duration: 0.2 }}
-                              >
-                                {item.icon}
-                              </motion.span>
-                              {item.title}
-                            </CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                              {item.text}
-                            </p>
-                          </CardContent>
-                        </Card>
-                      </motion.div>
-                    );
-                  })}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  >
+                    <Card className="shadow-sm">
+                      <CardHeader className="pb-2">
+                        <CardTitle className="flex items-center gap-2 text-base">
+                          <motion.span
+                            className="rounded-lg p-2 bg-slate-100 dark:bg-slate-800"
+                            whileHover={{ rotate: 5, scale: 1.1 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            {slides[index].icon}
+                          </motion.span>
+                          {slides[index].title}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                          {slides[index].text}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
                 </motion.div>
               </AnimatePresence>
             </div>

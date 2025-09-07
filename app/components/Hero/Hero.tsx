@@ -75,7 +75,7 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            Game Portal on Base
+            Vibeez Arcade on Base
           </motion.h1>
 
           <motion.p
@@ -84,9 +84,9 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
           >
-            Build, own, and use applications without intermediaries. Our dApp
-            combines smart contract transparency with the speed and low fees of
-            the Base network.
+            Play exciting arcade games and earn rewards! Our gaming portal
+            brings classic and modern games to Web3, powered by the fast and
+            affordable Base network.
           </motion.p>
 
           <motion.div

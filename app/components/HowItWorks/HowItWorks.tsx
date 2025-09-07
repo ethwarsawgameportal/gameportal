@@ -53,8 +53,8 @@ const HowItWorks: React.FC = () => (
           >
             <Step
               n={2}
-              title="Choose action"
-              text="Swap, mint, stake or build your own module. The interface guides you step by step."
+              title="Play games"
+              text="Play exciting arcade games and earn points. The interface guides you through each game."
             />
           </motion.div>
           <motion.div
@@ -65,7 +65,7 @@ const HowItWorks: React.FC = () => (
           >
             <Step
               n={3}
-              title="Approve and sign"
+              title="Sign score"
               text="Transaction signed locally. We provide clear cost overview."
             />
           </motion.div>

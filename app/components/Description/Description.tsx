@@ -23,9 +23,9 @@ const Description: React.FC = () => (
             <CardTitle>What is the application?</CardTitle>
           </CardHeader>
           <CardContent className="text-slate-600 dark:text-slate-300 leading-relaxed">
-            Our dApp is an open platform for secure on-chain interactions — from
-            token swaps to digital asset management. No central server, no
-            closed APIs.
+            Our platform offers exciting arcade games where you can compete and
+            earn rewards weekly. Play classic games reimagined for Web3 and
+            collect tickets that can be redeemed for prizes.
           </CardContent>
         </Card>
       </motion.div>

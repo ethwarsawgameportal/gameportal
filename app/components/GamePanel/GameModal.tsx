@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { MarketItem } from "./types";
 import { twMerge } from "tailwind-merge";
 import { useUser } from "@civic/auth/react";
@@ -12,8 +12,27 @@ interface GameModalProps {
   onClose: () => void;
 }
 
+// Simple cookie utility functions
+const setCookie = (name: string, value: string, days: number = 365) => {
+  const expires = new Date();
+  expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+  document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+};
+
+const getCookie = (name: string): string | null => {
+  const nameEQ = name + "=";
+  const ca = document.cookie.split(";");
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) === " ") c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+  }
+  return null;
+};
+
 const GameModal: React.FC<GameModalProps> = ({ item, isOpen, onClose }) => {
   const { user } = useUser();
+  const [hasUsedFreeGame, setHasUsedFreeGame] = useState(false);
 
   const result = useReadContract({
     abi: TICKET_ABI,
@@ -21,10 +40,21 @@ const GameModal: React.FC<GameModalProps> = ({ item, isOpen, onClose }) => {
     functionName: "weekTickets",
   });
 
+  // Check if user has used their free game
+  useEffect(() => {
+    if (user) {
+      const freeGameUsed = getCookie(`freeGameUsed_${user.id}`);
+      setHasUsedFreeGame(!!freeGameUsed);
+    }
+  }, [user]);
+
   if (!isOpen || !item) return null;
 
   // Mock user tickets - in real app this would come from user data
   const userTickets = user ? Number(result.data?.toString() ?? 0) : 0;
+
+  // Check if user can play for free
+  const canPlayForFree = user && !hasUsedFreeGame;
 
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -33,13 +63,14 @@ const GameModal: React.FC<GameModalProps> = ({ item, isOpen, onClose }) => {
   };
 
   const handlePlayClick = () => {
-    // Check if user has enough tickets
+    // Check if user is signed in
     if (!user) {
       alert("Please sign in to play games!");
       return;
     }
 
-    if (userTickets < item.ticketCost) {
+    // Check if user can play for free or has enough tickets
+    if (!canPlayForFree && userTickets < item.ticketCost) {
       alert(
         `You need ${item.ticketCost} ticket(s) to play this game. You have ${userTickets} ticket(s).`,
       );
@@ -50,6 +81,12 @@ const GameModal: React.FC<GameModalProps> = ({ item, isOpen, onClose }) => {
     if (item.isComingSoon) {
       alert("This game is coming soon!");
     } else {
+      // Mark free game as used if this is their first game
+      if (canPlayForFree) {
+        setCookie(`freeGameUsed_${user.id}`, "true", 365); // Expires in 1 year
+        setHasUsedFreeGame(true);
+      }
+
       // Navigate to game page
       window.location.href = `/tetris`; // For now, redirect to tetris
     }
@@ -92,7 +129,7 @@ const GameModal: React.FC<GameModalProps> = ({ item, isOpen, onClose }) => {
           <div className="p-6">
             <div className="space-y-4">
               {/* Game Image */}
-              <div className="relative aspect-[4/3] w-full bg-slate-100 dark:bg-slate-800 rounded-xl overflow-hidden">
+              {/* <div className="relative aspect-[4/3] w-full bg-slate-100 dark:bg-slate-800 rounded-xl overflow-hidden">
                 <img
                   src={`/${item.backgroud}`}
                   alt={item.title}
@@ -101,22 +138,44 @@ const GameModal: React.FC<GameModalProps> = ({ item, isOpen, onClose }) => {
                   }`}
                   style={item.isComingSoon ? { filter: "grayscale(0.7)" } : {}}
                 />
-              </div>
+              </div> */}
 
               {/* Game Description */}
               <div className="space-y-4">
                 {/* Ticket Information */}
                 <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-4 space-y-3">
+                  {/* Free Game Banner */}
+                  {canPlayForFree && (
+                    <div className="bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900 dark:to-emerald-900 rounded-lg p-3 border border-green-200 dark:border-green-700">
+                      <div className="flex items-center gap-2">
+                        <div className="bg-green-500 rounded-full p-1">
+                          <svg
+                            className="w-4 h-4 text-white"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-green-800 dark:text-green-200">
+                            Free Game Available!
+                          </p>
+                          <p className="text-xs text-green-600 dark:text-green-300">
+                            Play your first game for free
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <div className="bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                        {/* <svg
-                          className="w-4 h-4 text-blue-600 dark:text-blue-400"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg> */}
                         <img
                           src="/explorer/ticket.png"
                           alt="Ticket"
@@ -125,10 +184,12 @@ const GameModal: React.FC<GameModalProps> = ({ item, isOpen, onClose }) => {
                       </div>
                       <div>
                         <p className="text-sm font-medium text-slate-900 dark:text-white">
-                          Game Cost
+                          {canPlayForFree ? "Regular Cost" : "Game Cost"}
                         </p>
                         <p className="text-xs text-slate-500 dark:text-slate-400">
-                          Tickets required to play
+                          {canPlayForFree
+                            ? "After free game"
+                            : "Tickets required to play"}
                         </p>
                       </div>
                     </div>
@@ -164,14 +225,22 @@ const GameModal: React.FC<GameModalProps> = ({ item, isOpen, onClose }) => {
                       </div>
                       <div className="text-right">
                         <p
-                          className={`text-lg font-bold ${userTickets >= item.ticketCost ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}
+                          className={`text-lg font-bold ${
+                            canPlayForFree
+                              ? "text-green-600 dark:text-green-400"
+                              : userTickets >= item.ticketCost
+                                ? "text-green-600 dark:text-green-400"
+                                : "text-red-600 dark:text-red-400"
+                          }`}
                         >
                           {userTickets}
                         </p>
                         <p className="text-xs text-slate-500 dark:text-slate-400">
-                          {userTickets >= item.ticketCost
-                            ? "Sufficient"
-                            : "Insufficient"}
+                          {canPlayForFree
+                            ? "Free game available"
+                            : userTickets >= item.ticketCost
+                              ? "Sufficient"
+                              : "Insufficient"}
                         </p>
                       </div>
                     </div>
@@ -191,21 +260,27 @@ const GameModal: React.FC<GameModalProps> = ({ item, isOpen, onClose }) => {
                   ? "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 cursor-not-allowed"
                   : !user
                     ? "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 cursor-not-allowed"
-                    : userTickets < item.ticketCost
-                      ? "bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-400 cursor-not-allowed"
-                      : "bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0",
+                    : canPlayForFree
+                      ? "bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 active:from-green-800 active:to-emerald-800 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0"
+                      : userTickets < item.ticketCost
+                        ? "bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-400 cursor-not-allowed"
+                        : "bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0",
               )}
               disabled={
-                item.isComingSoon || !user || userTickets < item.ticketCost
+                item.isComingSoon ||
+                !user ||
+                (!canPlayForFree && userTickets < item.ticketCost)
               }
             >
               {item.isComingSoon
                 ? "Coming Soon"
                 : !user
                   ? "Sign In Required"
-                  : userTickets < item.ticketCost
-                    ? `Need ${item.ticketCost - userTickets} More Ticket${item.ticketCost - userTickets !== 1 ? "s" : ""}`
-                    : `Play Game (${item.ticketCost} ticket${item.ticketCost !== 1 ? "s" : ""})`}
+                  : canPlayForFree
+                    ? "🎮 Play Free Game!"
+                    : userTickets < item.ticketCost
+                      ? `Need ${item.ticketCost - userTickets} More Ticket${item.ticketCost - userTickets !== 1 ? "s" : ""}`
+                      : `Play Game (${item.ticketCost} ticket${item.ticketCost !== 1 ? "s" : ""})`}
             </button>
             <div
               className="text-sm text-slate-500 dark:text-slate-400 pt-5 text-center cursor-pointer"
