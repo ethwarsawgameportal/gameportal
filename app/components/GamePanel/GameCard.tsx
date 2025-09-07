@@ -29,7 +29,7 @@ const GameCard: React.FC<GameCardProps> = ({ item }) => {
         className={twMerge(
           "overflow-hidden cursor-not-allowed rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm transition-all duration-200",
           !item.isComingSoon &&
-          "hover:shadow-md cursor-pointer hover:scale-[1.02] active:scale-[0.98]",
+            "hover:shadow-md cursor-pointer hover:scale-[1.02] active:scale-[0.98]",
         )}
       >
         <div
@@ -47,8 +47,9 @@ const GameCard: React.FC<GameCardProps> = ({ item }) => {
           <img
             src={`/${item.backgroud}`}
             alt={item.title}
-            className={`object-cover w-full h-full ${item.isComingSoon ? "grayscale-70" : ""
-              }`}
+            className={`object-cover w-full h-full ${
+              item.isComingSoon ? "grayscale-70" : ""
+            }`}
           />
           {item.isComingSoon && (
             <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">

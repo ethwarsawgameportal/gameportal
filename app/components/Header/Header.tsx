@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ArrowRight, Wallet, Copy, Check, User, ChevronDown } from "lucide-react";
+import {
+  ArrowRight,
+  Wallet,
+  Copy,
+  Check,
+  User,
+  ChevronDown,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Logo } from "../shared";
@@ -45,7 +52,10 @@ const Header: React.FC<HeaderProps> = ({ pageType = "game" }) => {
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setShowProfileDropdown(false);
       }
     };

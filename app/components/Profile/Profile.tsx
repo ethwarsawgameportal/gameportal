@@ -114,9 +114,11 @@ export const Profile: React.FC<ProfileProps> = ({
                   variant="ghost"
                   size="sm"
                   onClick={() => {
-                    navigator.clipboard.writeText(user.email);
-                    setCopied(true);
-                    setTimeout(() => setCopied(false), 2000);
+                    if (user.email) {
+                      navigator.clipboard.writeText(user.email);
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 2000);
+                    }
                   }}
                   className="h-6 w-6 p-0 hover:bg-slate-100 dark:hover:bg-slate-800"
                 >

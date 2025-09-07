@@ -87,8 +87,9 @@ const GameModal: React.FC<GameModalProps> = ({ item, isOpen, onClose }) => {
                 <img
                   src={`/${item.backgroud}`}
                   alt={item.title}
-                  className={`object-cover w-full h-full ${item.isComingSoon ? "grayscale-70" : ""
-                    }`}
+                  className={`object-cover w-full h-full ${
+                    item.isComingSoon ? "grayscale-70" : ""
+                  }`}
                 />
               </div>
 
