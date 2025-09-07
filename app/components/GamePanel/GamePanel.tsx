@@ -49,7 +49,7 @@ export const DappExplorePage: React.FC = () => {
 
       <FilterToggleButton open={open} onOpen={() => setOpen(true)} />
 
-      <div className="flex">
+      <div className="flex" style={{ height: "calc(100vh - 65px)" }}>
         <Sidebar
           open={open}
           onClose={() => setOpen(false)}
