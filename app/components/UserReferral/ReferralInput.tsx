@@ -32,8 +32,8 @@ export const ReferralInput = ({ onPurchaseComplete }: ReferralInputProps) => {
   }
 
   return (
-    <div className="space-y-4 p-4 border border-slate-200 dark:border-slate-700 rounded-lg">
-      <h3 className="text-lg font-semibold">Purchase Ticket</h3>
+    <div>
+      {/* <h3 className="text-lg font-semibold">Purchase Ticket</h3>
 
       <div className="space-y-2">
         <label htmlFor="referral-code" className="text-sm font-medium">
@@ -70,7 +70,7 @@ export const ReferralInput = ({ onPurchaseComplete }: ReferralInputProps) => {
         <p className="text-xs text-slate-500">
           Using referral code: <span className="font-mono">{referralCode}</span>
         </p>
-      )}
+      )} */}
     </div>
   );
 };

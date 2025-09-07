@@ -8,6 +8,13 @@ const DappTetrisPage: React.FC = () => {
 
   useEffect(() => {
     setIsClient(true);
+    // Add overflow hidden to body
+    document.body.style.overflow = "hidden";
+
+    // Cleanup function to restore overflow when component unmounts
+    return () => {
+      document.body.style.overflow = "unset";
+    };
   }, []);
 
   if (!isClient) {
@@ -25,8 +32,8 @@ const DappTetrisPage: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900 text-slate-900 dark:text-white">
       <Header pageType="game" />
 
-      <div className="flex" style={{ height: "calc(100vh - 65px)" }}>
-        <div className="min-h-screen bg-gray-100 p-4">
+      <div className="flex justify-center">
+        <div className="min-h-screen  p-4">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-3xl font-bold text-center mb-6">Tetris</h1>
             <Tetris
@@ -54,10 +61,10 @@ const DappTetrisPage: React.FC = () => {
                 state,
                 controller,
               }) => (
-                <div className="flex flex-col lg:flex-row gap-6 items-start justify-center">
+                <div className="flex flex-col md:flex-row gap-6 items-start justify-center w-full">
                   {/* Game Info */}
-                  <div className="w-full lg:w-64 space-y-4">
-                    <div className="bg-white p-4 rounded-lg shadow-md">
+                  <div className="">
+                    <div className=" p-4 rounded-lg shadow-md">
                       <h3 className="text-lg font-semibold mb-2">Score</h3>
                       <p className="text-2xl font-bold text-blue-600">
                         Points: {points}
@@ -71,18 +78,11 @@ const DappTetrisPage: React.FC = () => {
                   <h3 className="text-lg font-semibold mb-2">Held Piece</h3>
                   <HeldPiece />
                 </div> */}
-
-                    <div className="bg-white p-4 rounded-lg shadow-md">
-                      <h3 className="text-lg font-semibold mb-2">
-                        Next Pieces
-                      </h3>
-                      <PieceQueue />
-                    </div>
                   </div>
 
                   {/* Game Board */}
                   <div className="flex flex-col items-center">
-                    <div className="bg-white p-4 rounded-lg shadow-md">
+                    <div className=" p-4 rounded-lg shadow-md">
                       <Gameboard />
                     </div>
 
@@ -99,6 +99,10 @@ const DappTetrisPage: React.FC = () => {
                         </button>
                       </div>
                     )}
+                  </div>
+                  <div className="p-4 rounded-lg shadow-md hidden sm:block">
+                    <h3 className="text-lg font-semibold mb-2">Next Pieces</h3>
+                    <PieceQueue />
                   </div>
                 </div>
               )}

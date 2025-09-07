@@ -7,6 +7,9 @@ import { Badge } from "@/components/ui/badge";
 import { CheckCircle, Ticket } from "lucide-react";
 import { useWallet } from "@civic/auth-web3/react";
 import { Button } from "../DemoComponents";
+import { useReadContract } from "wagmi";
+import { TICKET_CONTRACT_ADDRESS } from "../Tickets/contract";
+import TICKET_ABI from "../../abi/TetrisGame.json";
 
 interface TicketDropDownProps {
   variant?: "compact" | "full";
@@ -19,6 +22,12 @@ export const TicketDropDown: React.FC<TicketDropDownProps> = ({
 }) => {
   const userContext = useUser();
   const { user } = userContext;
+
+  const result = useReadContract({
+    abi: TICKET_ABI,
+    address: TICKET_CONTRACT_ADDRESS,
+    functionName: "weekTickets",
+  });
 
   // Safely get wallet info with error handling
   let address: string | undefined;
@@ -73,7 +82,7 @@ export const TicketDropDown: React.FC<TicketDropDownProps> = ({
   return (
     <Card className={`w-full ${className}`}>
       <CardHeader className="pb-0">
-        <h3 className="text-lg font-semibold mb-4">User Tickets</h3>
+        <h3 className="text-lg font-semibold">User Tickets</h3>
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Referral Stats */}
@@ -82,7 +91,9 @@ export const TicketDropDown: React.FC<TicketDropDownProps> = ({
             <div>
               <p className="text-sm font-medium">Total Tickets</p>
             </div>
-            <span className="text-lg font-bold text-blue-600">0</span>
+            <span className="text-lg font-bold text-blue-600">
+              {result.data?.toString() ?? 0}
+            </span>
           </div>
         </div>
 

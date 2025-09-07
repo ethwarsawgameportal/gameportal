@@ -7,12 +7,12 @@ import { Badge } from "@/components/ui/badge";
 import { Check, Zap, Crown, Ticket } from "lucide-react";
 import Header from "../Header";
 import { twMerge } from "tailwind-merge";
-import { useConfig, useWriteContract } from "wagmi";
-import TICKET_ABI from "./TetrisGame.json";
+import { useAccount, useConfig, useWriteContract } from "wagmi";
+import TICKET_ABI from "../../abi/TetrisGame.json";
 import { TICKET_CONTRACT_ADDRESS } from "./contract";
 import { waitForTransactionReceipt } from "viem/actions";
-import { Client, ClientConfig } from "viem";
 import { Toaster, toast } from "sonner";
+import { useWallet } from "@civic/auth-web3/react";
 
 interface TicketPlan {
   id: string;
@@ -89,6 +89,10 @@ const TicketsPage: React.FC = () => {
   const config = useConfig();
 
   const handlePurchase = async (plan: TicketPlan) => {
+    if (!wagmiAddress && !civicAddress) {
+      toast.error("Please connect your wallet");
+      return;
+    }
     setIsProcessing(true);
     try {
       const txHash = await writeContract({
@@ -147,6 +151,9 @@ const TicketsPage: React.FC = () => {
         };
     }
   };
+
+  const { address: civicAddress } = useWallet({ type: "ethereum" });
+  const { address: wagmiAddress } = useAccount();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900 text-slate-900 dark:text-white">
@@ -248,7 +255,11 @@ const TicketsPage: React.FC = () => {
                         className={twMerge(
                           plan.tokens == 10 && "text-blue-600",
                         )}
-                      >{`Buy ${plan.tokens} Tokens`}</span>
+                      >
+                        {wagmiAddress || civicAddress
+                          ? `Buy ${plan.tokens} Tokens`
+                          : "Connect Wallet"}
+                      </span>
                     )}
                   </Button>
                 </CardContent>

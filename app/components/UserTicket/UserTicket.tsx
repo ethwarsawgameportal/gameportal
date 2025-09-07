@@ -3,11 +3,20 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { TicketDropDown } from "./TiketDropDown";
 import { useUser } from "@civic/auth-web3/react";
+import { useReadContract } from "wagmi";
+import TICKET_ABI from "../../abi/TetrisGame.json";
+import { TICKET_CONTRACT_ADDRESS } from "../Tickets/contract";
 
 export const UserTicket = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const { user } = useUser();
+
+  const result = useReadContract({
+    abi: TICKET_ABI,
+    address: TICKET_CONTRACT_ADDRESS,
+    functionName: "weekTickets",
+  });
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -40,7 +49,7 @@ export const UserTicket = () => {
           <img src="/explorer/ticket.png" alt="Ticket" className="w-10 h-10" />
         </div>
         <span className="text-sm font-medium text-slate-900 dark:text-white">
-          1
+          {result.data?.toString() ?? 0}
         </span>
         <ChevronDown className="w-4 h-4 text-slate-500" />
       </Button>

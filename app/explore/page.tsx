@@ -10,11 +10,11 @@ export default function ExplorePage() {
       <DappExplorePage />
 
       {/* Add referral functionality to explore page */}
-      <div className="container mx-auto p-6">
+      {/* <div className="container mx-auto p-6">
         <Suspense fallback={<div>Loading...</div>}>
           <ReferralFromURL />
         </Suspense>
-      </div>
+      </div> */}
     </div>
   );
 }

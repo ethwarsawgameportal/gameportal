@@ -82,7 +82,7 @@ export const UserReferralDown = () => {
       </Button>
 
       {showReferralDropdown && (
-        <div className="absolute right-0 top-full mt-2 w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg z-50">
+        <div className="absolute -left-40 sm:right-0 top-full mt-2 w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg z-50">
           <div className="p-4">
             <h3 className="text-lg font-semibold mb-4">User Referrals</h3>
 

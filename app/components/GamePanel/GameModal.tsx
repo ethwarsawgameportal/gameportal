@@ -2,6 +2,9 @@ import React from "react";
 import { MarketItem } from "./types";
 import { twMerge } from "tailwind-merge";
 import { useUser } from "@civic/auth/react";
+import { TICKET_CONTRACT_ADDRESS } from "../Tickets/contract";
+import { useReadContract } from "wagmi";
+import TICKET_ABI from "../../abi/TetrisGame.json";
 
 interface GameModalProps {
   item: MarketItem | null;
@@ -12,10 +15,16 @@ interface GameModalProps {
 const GameModal: React.FC<GameModalProps> = ({ item, isOpen, onClose }) => {
   const { user } = useUser();
 
+  const result = useReadContract({
+    abi: TICKET_ABI,
+    address: TICKET_CONTRACT_ADDRESS,
+    functionName: "weekTickets",
+  });
+
   if (!isOpen || !item) return null;
 
   // Mock user tickets - in real app this would come from user data
-  const userTickets = user ? 5 : 0;
+  const userTickets = user ? Number(result.data?.toString() ?? 0) : 0;
 
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -198,6 +207,12 @@ const GameModal: React.FC<GameModalProps> = ({ item, isOpen, onClose }) => {
                     ? `Need ${item.ticketCost - userTickets} More Ticket${item.ticketCost - userTickets !== 1 ? "s" : ""}`
                     : `Play Game (${item.ticketCost} ticket${item.ticketCost !== 1 ? "s" : ""})`}
             </button>
+            <div
+              className="text-sm text-slate-500 dark:text-slate-400 pt-5 text-center cursor-pointer"
+              onClick={() => (window.location.href = "/tickets")}
+            >
+              Buy tickets
+            </div>
           </div>
         </div>
       </div>
