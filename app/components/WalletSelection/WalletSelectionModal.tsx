@@ -43,7 +43,7 @@ export const WalletSelectionModal: React.FC<WalletSelectionModalProps> = ({
               <X className="h-4 w-4" />
             </Button>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 pt-6">
             <p className="text-sm text-slate-600 dark:text-slate-400">
               Select how you&apos;d like to connect to the Game Portal
             </p>
