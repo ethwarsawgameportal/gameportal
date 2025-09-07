@@ -53,7 +53,7 @@ export const UserReferralDown = () => {
                 <div>
                   <p className="text-sm font-medium">Total Referrals</p>
                   <p className="text-xs text-slate-500">
-                    Users you've referred
+                    Users you&apos;ve referred
                   </p>
                 </div>
                 <span className="text-lg font-bold text-blue-600">0</span>
