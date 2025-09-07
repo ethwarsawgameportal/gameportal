@@ -12,8 +12,10 @@ import {
   Copy,
   Check,
   ExternalLink,
+  LogOut,
 } from "lucide-react";
 import { useWallet } from "@civic/auth-web3/react";
+import { useAccount, useDisconnect } from "wagmi";
 
 interface ProfileProps {
   variant?: "compact" | "full";
@@ -25,19 +27,31 @@ export const Profile: React.FC<ProfileProps> = ({
   className = "",
 }) => {
   const userContext = useUser();
-  const { user } = userContext;
+  const { user, signOut } = userContext;
+  const { address: coinbaseAddress, isConnected: isCoinbaseConnected } =
+    useAccount();
+  const { disconnect } = useDisconnect();
   const [copied, setCopied] = useState(false);
+
+  // Always call the hook (React rules)
+  const civicWallet = useWallet({ type: "ethereum" });
 
   // Safely get wallet info with error handling
   let address: string | undefined;
   let isConnected = false;
+  let walletType = "Unknown";
 
-  try {
-    const wallet = useWallet({ type: "ethereum" });
-    address = wallet?.address;
-    isConnected = !!wallet?.address;
-  } catch (error) {
-    console.log("Wallet not available yet:", error);
+  // Determine wallet type and address
+  if (user && civicWallet) {
+    // Civic Auth user
+    address = civicWallet?.address;
+    isConnected = !!civicWallet?.address;
+    walletType = "Civic Embedded";
+  } else if (isCoinbaseConnected && coinbaseAddress) {
+    // Coinbase wallet user
+    address = coinbaseAddress;
+    isConnected = true;
+    walletType = "Coinbase Wallet";
   }
 
   const handleCopyAddress = async () => {
@@ -52,8 +66,8 @@ export const Profile: React.FC<ProfileProps> = ({
     }
   };
 
-  // Don't render if user is not authenticated
-  if (!user) {
+  // Don't render if no wallet is connected
+  if (!user && !isCoinbaseConnected) {
     return null;
   }
 
@@ -66,7 +80,11 @@ export const Profile: React.FC<ProfileProps> = ({
           </div>
           <div className="flex flex-col">
             <span className="text-sm font-medium text-slate-900 dark:text-white">
-              {user.email || user.name || "User"}
+              {user?.email ||
+                user?.name ||
+                (coinbaseAddress
+                  ? `${coinbaseAddress.slice(0, 6)}...${coinbaseAddress.slice(-4)}`
+                  : "User")}
             </span>
             {isConnected && address ? (
               <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">
@@ -74,18 +92,35 @@ export const Profile: React.FC<ProfileProps> = ({
               </span>
             ) : (
               <span className="text-xs text-slate-500 dark:text-slate-400">
-                Identity Verified
+                {user ? "Identity Verified" : "Wallet Connected"}
               </span>
             )}
           </div>
         </div>
-        <Badge
-          variant="secondary"
-          className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
-        >
-          <CheckCircle className="w-3 h-3 mr-1" />
-          Verified
-        </Badge>
+        <div className="flex items-center gap-2">
+          <Badge
+            variant="secondary"
+            className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+          >
+            <CheckCircle className="w-3 h-3 mr-1" />
+            {user ? "Verified" : "Connected"}
+          </Badge>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => {
+              if (user && signOut) {
+                signOut();
+              } else if (isCoinbaseConnected) {
+                disconnect();
+              }
+            }}
+            className="h-8 w-8 p-0 hover:bg-red-100 dark:hover:bg-red-900/20"
+            title="Sign out"
+          >
+            <LogOut className="w-4 h-4 text-red-600" />
+          </Button>
+        </div>
       </div>
     );
   }
@@ -101,44 +136,48 @@ export const Profile: React.FC<ProfileProps> = ({
       <CardContent className="space-y-4">
         {/* User Info */}
         <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
-              Email
-            </span>
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-slate-900 dark:text-white">
-                {user.email || "Not provided"}
+          {user && (
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
+                Email
               </span>
-              {user.email && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => {
-                    if (user.email) {
-                      navigator.clipboard.writeText(user.email);
-                      setCopied(true);
-                      setTimeout(() => setCopied(false), 2000);
-                    }
-                  }}
-                  className="h-6 w-6 p-0 hover:bg-slate-100 dark:hover:bg-slate-800"
-                >
-                  {copied ? (
-                    <Check className="w-3 h-3 text-green-600" />
-                  ) : (
-                    <Copy className="w-3 h-3 text-slate-600" />
-                  )}
-                </Button>
-              )}
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-slate-900 dark:text-white">
+                  {user.email || "Not provided"}
+                </span>
+                {user.email && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      if (user.email) {
+                        navigator.clipboard.writeText(user.email);
+                        setCopied(true);
+                        setTimeout(() => setCopied(false), 2000);
+                      }
+                    }}
+                    className="h-6 w-6 p-0 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  >
+                    {copied ? (
+                      <Check className="w-3 h-3 text-green-600" />
+                    ) : (
+                      <Copy className="w-3 h-3 text-slate-600" />
+                    )}
+                  </Button>
+                )}
+              </div>
             </div>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
-              Name
-            </span>
-            <span className="text-sm text-slate-900 dark:text-white">
-              {user.name || "Not provided"}
-            </span>
-          </div>
+          )}
+          {user && (
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
+                Name
+              </span>
+              <span className="text-sm text-slate-900 dark:text-white">
+                {user.name || "Not provided"}
+              </span>
+            </div>
+          )}
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
               Status
@@ -148,7 +187,7 @@ export const Profile: React.FC<ProfileProps> = ({
               className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
             >
               <CheckCircle className="w-3 h-3 mr-1" />
-              Verified
+              {user ? "Verified" : "Connected"}
             </Badge>
           </div>
         </div>
@@ -243,7 +282,7 @@ export const Profile: React.FC<ProfileProps> = ({
                     Wallet Type
                   </span>
                   <span className="text-sm text-blue-700 dark:text-blue-300">
-                    Civic Embedded
+                    {walletType}
                   </span>
                 </div>
                 <div className="pt-2 border-t border-blue-200 dark:border-blue-700">
@@ -279,6 +318,24 @@ export const Profile: React.FC<ProfileProps> = ({
               </p>
             </div>
           )}
+        </div>
+
+        {/* Sign Out Button */}
+        <div className="border-t pt-4">
+          <Button
+            variant="outline"
+            onClick={() => {
+              if (user && signOut) {
+                signOut();
+              } else if (isCoinbaseConnected) {
+                disconnect();
+              }
+            }}
+            className="w-full flex items-center gap-2 text-red-600 border-red-200 hover:bg-red-50 dark:border-red-800 dark:hover:bg-red-900/20"
+          >
+            <LogOut className="w-4 h-4" />
+            {user ? "Sign Out" : "Disconnect"}
+          </Button>
         </div>
       </CardContent>
     </Card>
