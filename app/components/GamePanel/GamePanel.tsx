@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useMemo, useState } from "react";
 import { MarketItem, MARKET_ITEMS } from "./types";
 import FilterToggleButton from "./FilterToggleButton";
