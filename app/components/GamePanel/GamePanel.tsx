@@ -8,7 +8,7 @@ import MainContent from "./MainContent";
 import Header from "../Header";
 
 export const DappExplorePage: React.FC = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [onlyWithOther, setOnlyWithOther] = useState(false);
   const [levels, setLevels] = useState<{
