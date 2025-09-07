@@ -1,5 +1,9 @@
+
+import React from "react";
+import { ArrowRight } from "lucide-react";
 import React, { useState } from "react";
 import { ArrowRight, Wallet, Copy, Check } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { Logo } from "../shared";
 import { CivicAuth } from "../CivicAuth";
@@ -8,10 +12,10 @@ import { useUser } from "@civic/auth-web3/react";
 import { useWallet } from "@civic/auth-web3/react";
 
 type HeaderProps = {
-  isMainPage?: boolean;
+  pageType?: "main" | "explore" | "game";
 };
 
-const Header: React.FC<HeaderProps> = ({ isMainPage }) => {
+const Header: React.FC<HeaderProps> = ({ pageType = "game" }) => {
   const { user } = useUser();
   const [copied, setCopied] = useState(false);
 
@@ -44,11 +48,18 @@ const Header: React.FC<HeaderProps> = ({ isMainPage }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Logo className="w-8 h-8" />
-          <span className="font-semibold tracking-tight">Game Portal</span>
+          <span
+            className="font-semibold tracking-tight cursor-pointer"
+            onClick={() =>
+              pageType === "explore" && (window.location.href = "/")
+            }
+          >
+            Game Portal
+          </span>
         </div>
 
         <div className="flex items-center gap-3">
-          {isMainPage ? (
+          {pageType === "main" ? (
             <Button
               className="gap-2"
               onClick={() => (window.location.href = "/explore")}

@@ -3,7 +3,7 @@ import { MarketItem, MARKET_ITEMS } from "./types";
 import FilterToggleButton from "./FilterToggleButton";
 import Sidebar from "./Sidebar";
 import MainContent from "./MainContent";
-import Headers from "../Header";
+import Header from "../Header";
 
 export const DappExplorePage: React.FC = () => {
   const [open, setOpen] = useState(true);
@@ -45,11 +45,14 @@ export const DappExplorePage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900 text-slate-900 dark:text-white">
       {/* <PlaceholderHeader /> */}
-      <Headers />
+      <Header pageType="explore" />
 
       <FilterToggleButton open={open} onOpen={() => setOpen(true)} />
 
-      <div className="flex" style={{ height: "calc(100vh - 65px)" }}>
+      <div
+        className="max-w-7xl mx-auto px-4 sm:px-6 flex overflow-hidden"
+        style={{ height: "calc(100vh - 65px)" }}
+      >
         <Sidebar
           open={open}
           onClose={() => setOpen(false)}

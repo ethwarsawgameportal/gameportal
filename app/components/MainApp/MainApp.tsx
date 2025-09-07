@@ -18,7 +18,7 @@ const SectionAnchor: React.FC<{ id: string; children: React.ReactNode }> = ({
 
 const PageShell: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div className="min-h-screen bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900 text-slate-900 dark:text-white">
-    <Header isMainPage />
+    <Header pageType="main" />
     {children}
     <Footer />
   </div>

@@ -14,7 +14,7 @@ const FilterToggleButton: React.FC<FilterToggleButtonProps> = ({
   return (
     <button
       onClick={onOpen}
-      className="fixed left-3 top-20 sm:top-24 z-40 inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 backdrop-blur px-3 py-1.5 text-sm shadow-sm"
+      className="fixed mt-[8px] left-3 top-20 sm:top-24 z-40 inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 backdrop-blur px-3 py-1.5 text-sm shadow-sm"
       aria-label="Open filters"
     >
       <svg
