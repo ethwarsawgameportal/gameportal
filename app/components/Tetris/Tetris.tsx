@@ -3,7 +3,7 @@ import Tetris from "react-tetris";
 import React, { useEffect, useState } from "react";
 import Header from "../Header";
 
-export const DappTetrisPage: React.FC = () => {
+const DappTetrisPage: React.FC = () => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -109,3 +109,5 @@ export const DappTetrisPage: React.FC = () => {
     </div>
   );
 };
+
+export default DappTetrisPage;
