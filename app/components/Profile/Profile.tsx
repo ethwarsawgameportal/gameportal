@@ -5,7 +5,14 @@ import { useUser } from "@civic/auth-web3/react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { User, CheckCircle, Wallet, Copy, Check, ExternalLink } from "lucide-react";
+import {
+  User,
+  CheckCircle,
+  Wallet,
+  Copy,
+  Check,
+  ExternalLink,
+} from "lucide-react";
 import { useWallet } from "@civic/auth-web3/react";
 
 interface ProfileProps {
@@ -20,11 +27,11 @@ export const Profile: React.FC<ProfileProps> = ({
   const userContext = useUser();
   const { user } = userContext;
   const [copied, setCopied] = useState(false);
-  
+
   // Safely get wallet info with error handling
   let address: string | undefined;
   let isConnected = false;
-  
+
   try {
     const wallet = useWallet({ type: "ethereum" });
     address = wallet?.address;
@@ -35,7 +42,7 @@ export const Profile: React.FC<ProfileProps> = ({
 
   const handleCopyAddress = async () => {
     if (!address) return;
-    
+
     try {
       await navigator.clipboard.writeText(address);
       setCopied(true);
@@ -189,7 +196,12 @@ export const Profile: React.FC<ProfileProps> = ({
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => window.open(`https://basescan.org/address/${address}`, '_blank')}
+                      onClick={() =>
+                        window.open(
+                          `https://basescan.org/address/${address}`,
+                          "_blank",
+                        )
+                      }
                       className="h-6 w-6 p-0 hover:bg-blue-100 dark:hover:bg-blue-800"
                     >
                       <ExternalLink className="w-3 h-3 text-blue-600" />

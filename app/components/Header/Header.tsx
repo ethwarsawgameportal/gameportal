@@ -14,11 +14,11 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ isMainPage }) => {
   const { user } = useUser();
   const [copied, setCopied] = useState(false);
-  
+
   // Safely get wallet info with error handling
   let address: string | undefined;
   let isConnected = false;
-  
+
   try {
     const wallet = useWallet({ type: "ethereum" });
     address = wallet?.address;
@@ -29,7 +29,7 @@ const Header: React.FC<HeaderProps> = ({ isMainPage }) => {
 
   const handleCopyAddress = async () => {
     if (!address) return;
-    
+
     try {
       await navigator.clipboard.writeText(address);
       setCopied(true);
@@ -63,7 +63,7 @@ const Header: React.FC<HeaderProps> = ({ isMainPage }) => {
           {user ? (
             <div className="flex items-center gap-3">
               {isConnected && address && (
-                <div 
+                <div
                   className="flex items-center gap-2 px-3 py-1 bg-blue-50 dark:bg-blue-900/20 rounded-lg cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
                   onClick={handleCopyAddress}
                   title="Click to copy wallet address"

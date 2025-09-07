@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { MarketItem } from "./types";
 
 interface GameCardProps {
@@ -12,13 +13,14 @@ const GameCard: React.FC<GameCardProps> = ({ item }) => {
       className="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-shadow"
     >
       <div
-        className="aspect-[4/3] w-full bg-slate-100 dark:bg-slate-800"
+        className="aspect-[4/3] w-full bg-slate-100 dark:bg-slate-800 relative"
         aria-hidden
       >
-        <img
+        <Image
           src={`/${item.backgroud}`}
           alt={item.title}
-          className="object-cover w-full h-full"
+          fill
+          className="object-cover"
         />
       </div>
       <div className="p-4 space-y-2">
