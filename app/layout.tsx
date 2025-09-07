@@ -4,6 +4,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
 import { CivicAuthProvider } from "@civic/auth-web3/react";
+import { MiniAppProvider } from "./components/MiniAppProvider";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -52,7 +53,9 @@ export default function RootLayout({
           autoCreateWallet={true}
           autoConnectEmbeddedWallet={true}
         >
-          <Providers>{children}</Providers>
+          <MiniAppProvider>
+            <Providers>{children}</Providers>
+          </MiniAppProvider>
         </CivicAuthProvider>
       </body>
     </html>
