@@ -61,16 +61,6 @@ export const WalletInfo: React.FC = () => {
   const userContext = useUser();
   const { user } = userContext;
 
-  if (!user) {
-    return (
-      <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          Please sign in to access your profile
-        </p>
-      </div>
-    );
-  }
-
   return (
     <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg space-y-2">
       <h3 className="font-semibold text-blue-900 dark:text-blue-100">
@@ -82,7 +72,7 @@ export const WalletInfo: React.FC = () => {
             Email:
           </span>
           <p className="text-blue-700 dark:text-blue-300">
-            {user.email || "Not provided"}
+            {user?.email || "Not provided"}
           </p>
         </div>
         <div>
@@ -90,7 +80,7 @@ export const WalletInfo: React.FC = () => {
             Name:
           </span>
           <p className="text-blue-700 dark:text-blue-300">
-            {user.name || "Not provided"}
+            {user?.name || "Not provided"}
           </p>
         </div>
         <div>

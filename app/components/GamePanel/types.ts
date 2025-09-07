@@ -32,7 +32,7 @@ export const MARKET_ITEMS: MarketItem[] = [
     withOtherPlayer: true,
     gradient: "from-violet-200 via-purple-200 to-fuchsia-200",
     backgroud: "explorer/TicTacToe.png",
-    isComingSoon: false,
+    isComingSoon: true,
     ticketCost: 1,
   },
   {

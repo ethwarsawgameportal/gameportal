@@ -121,25 +121,7 @@ const Header: React.FC<HeaderProps> = ({ pageType = "game" }) => {
 
           <div className="flex items-center gap-3">
             <UserReferral />
-            <UserTicket />
-            {pageType === "main" ? (
-              <Button
-                className="gap-2"
-                onClick={() => (window.location.href = "/explore")}
-              >
-                Launch App <ArrowRight className="w-4 h-4" />
-                <div className="w-8 h-8 bg-blue-100 dark:bg-blue-600 rounded-full flex items-center justify-center">
-                  <User className="w-4 h-4 text-white " />
-                </div>
-                <span className="text-sm font-medium text-slate-900 dark:text-white">
-                  {user?.email || user?.name || "User"}
-                </span>
-                <ChevronDown className="w-4 h-4 text-slate-500" />
-              </Button>
-            ) : (
-              <></>
-            )}
-
+            <UserTicket />{" "}
             {/* Show profile if any wallet is connected, otherwise show auth */}
             {isAnyWalletConnected ? (
               <div className="relative" ref={dropdownRef}>

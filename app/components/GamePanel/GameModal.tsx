@@ -90,6 +90,7 @@ const GameModal: React.FC<GameModalProps> = ({ item, isOpen, onClose }) => {
                   className={`object-cover w-full h-full ${
                     item.isComingSoon ? "grayscale-70" : ""
                   }`}
+                  style={item.isComingSoon ? { filter: "grayscale(0.7)" } : {}}
                 />
               </div>
 

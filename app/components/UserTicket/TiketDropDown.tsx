@@ -4,8 +4,9 @@ import React from "react";
 import { useUser } from "@civic/auth-web3/react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, ShoppingBasket, Ticket } from "lucide-react";
+import { CheckCircle, Ticket } from "lucide-react";
 import { useWallet } from "@civic/auth-web3/react";
+import { Button } from "../DemoComponents";
 
 interface TicketDropDownProps {
   variant?: "compact" | "full";
@@ -71,33 +72,28 @@ export const TicketDropDown: React.FC<TicketDropDownProps> = ({
 
   return (
     <Card className={`w-full ${className}`}>
-      <CardHeader className="pb-3">
-        <CardTitle className="flex items-center space-x-2">
-          <Ticket className="w-5 h-5" />
-          <span>Your Tickets</span>
-        </CardTitle>
+      <CardHeader className="pb-0">
+        <h3 className="text-lg font-semibold mb-4">User Tickets</h3>
       </CardHeader>
       <CardContent className="space-y-4">
-        {/* User Info */}
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
-              Ticket
-            </span>
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-slate-900 dark:text-white">1</span>
+        {/* Referral Stats */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800 rounded-lg">
+            <div>
+              <p className="text-sm font-medium">Total Tickets</p>
             </div>
+            <span className="text-lg font-bold text-blue-600">0</span>
           </div>
         </div>
 
-        {/* Identity Information */}
-        <div className="border-t pt-4 space-y-3">
-          <div className="flex items-center space-x-2">
-            <ShoppingBasket className="w-4 h-4 text-blue-600" />
-            <span className="font-medium text-slate-900 dark:text-white">
-              Buy more tickets
-            </span>
-          </div>
+        {/* Action Button */}
+        <div className="border-t pt-4">
+          <Button
+            className="w-full text-white"
+            onClick={() => (window.location.href = "/tickets")}
+          >
+            Buy more tickets
+          </Button>
         </div>
       </CardContent>
     </Card>

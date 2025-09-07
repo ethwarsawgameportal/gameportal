@@ -2,7 +2,7 @@ import React from "react";
 import { cn } from "@/app/utils/utils";
 import { MarketItem } from "./types";
 import GameCard from "./GameCard";
-import { WalletInfo } from "../CivicAuth";
+// import { WalletInfo } from "../CivicAuth";
 import { useUser } from "@civic/auth/react";
 
 interface MainContentProps {
@@ -25,11 +25,7 @@ const MainContent: React.FC<MainContentProps> = ({ open, filteredItems }) => {
       </h1>
 
       {/* Wallet Information Section - Show when user is not logged in */}
-      {!user && (
-        <div className="mb-6">
-          <WalletInfo />
-        </div>
-      )}
+      {!user && <div className="mb-6">{/* <WalletInfo /> */}</div>}
 
       {filteredItems.length === 0 ? (
         <div className="text-sm text-slate-500">

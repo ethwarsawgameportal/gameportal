@@ -50,6 +50,7 @@ const GameCard: React.FC<GameCardProps> = ({ item }) => {
             className={`object-cover w-full h-full ${
               item.isComingSoon ? "grayscale-70" : ""
             }`}
+            style={item.isComingSoon ? { filter: "grayscale(0.7)" } : {}}
           />
           {item.isComingSoon && (
             <div className="absolute inset-0 flex items-center justify-center bg-opacity-40">
@@ -69,16 +70,16 @@ const GameCard: React.FC<GameCardProps> = ({ item }) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="flex items-center">
-                <svg
+                {/* <svg
                   className="w-4 h-4 text-slate-400"
                   viewBox="0 0 24 24"
                   fill="currentColor"
                 >
                   <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                </svg>
-                <span className="ml-1 text-sm font-medium text-slate-600 dark:text-slate-300">
+                </svg> */}
+                {/* <span className="ml-1 text-sm font-medium text-slate-600 dark:text-slate-300">
                   5 players
-                </span>
+                </span> */}
               </div>
             </div>
             <div className="flex items-center gap-1">
