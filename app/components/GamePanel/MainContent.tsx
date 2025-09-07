@@ -21,8 +21,8 @@ const MainContent: React.FC<MainContentProps> = ({ open, filteredItems }) => {
         open ? "md:ml-0" : "md:ml-0",
       )}
     >
-      <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6">
-        Explore
+      <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6 text-center">
+        Explore Games
       </h1>
 
       {/* Profile Section - Show when user is logged in */}
