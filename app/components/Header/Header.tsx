@@ -99,7 +99,7 @@ const Header: React.FC<HeaderProps> = ({ pageType = "game" }) => {
                 </span>
                 <ChevronDown className="w-4 h-4 text-slate-500" />
               </Button>
-              
+
               {showProfileDropdown && (
                 <div className="absolute right-0 top-full mt-2 w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg z-50">
                   <Profile variant="full" className="border-0 shadow-none" />

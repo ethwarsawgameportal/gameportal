@@ -101,34 +101,34 @@ export const Profile: React.FC<ProfileProps> = ({
       <CardContent className="space-y-4">
         {/* User Info */}
         <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
-                    Email
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-slate-900 dark:text-white">
-                      {user.email || "Not provided"}
-                    </span>
-                    {user.email && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => {
-                          navigator.clipboard.writeText(user.email);
-                          setCopied(true);
-                          setTimeout(() => setCopied(false), 2000);
-                        }}
-                        className="h-6 w-6 p-0 hover:bg-slate-100 dark:hover:bg-slate-800"
-                      >
-                        {copied ? (
-                          <Check className="w-3 h-3 text-green-600" />
-                        ) : (
-                          <Copy className="w-3 h-3 text-slate-600" />
-                        )}
-                      </Button>
-                    )}
-                  </div>
-                </div>
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
+              Email
+            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-slate-900 dark:text-white">
+                {user.email || "Not provided"}
+              </span>
+              {user.email && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    navigator.clipboard.writeText(user.email);
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  }}
+                  className="h-6 w-6 p-0 hover:bg-slate-100 dark:hover:bg-slate-800"
+                >
+                  {copied ? (
+                    <Check className="w-3 h-3 text-green-600" />
+                  ) : (
+                    <Copy className="w-3 h-3 text-slate-600" />
+                  )}
+                </Button>
+              )}
+            </div>
+          </div>
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
               Name
