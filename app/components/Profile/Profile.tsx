@@ -215,7 +215,10 @@ export const Profile: React.FC<ProfileProps> = ({
               <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
                 Verification
               </span>
-              <Badge variant="outline" className="text-xs">
+              <Badge
+                variant="outline"
+                className="text-xs text-slate-500 dark:text-slate-400"
+              >
                 Identity Verified
               </Badge>
             </div>

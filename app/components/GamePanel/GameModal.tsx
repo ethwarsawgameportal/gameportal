@@ -135,9 +135,9 @@ const GameModal: React.FC<GameModalProps> = ({ item, isOpen, onClose }) => {
                   {user && (
                     <div className="flex items-center justify-between pt-2 border-t border-slate-200 dark:border-slate-700">
                       <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
+                        <div className="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
                           <svg
-                            className="w-3 h-3 text-green-600 dark:text-green-400"
+                            className="w-6 h-6 text-green-600 dark:text-green-400"
                             fill="currentColor"
                             viewBox="0 0 20 20"
                           >

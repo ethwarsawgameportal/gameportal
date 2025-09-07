@@ -52,7 +52,7 @@ const GameCard: React.FC<GameCardProps> = ({ item }) => {
             }`}
           />
           {item.isComingSoon && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
+            <div className="absolute inset-0 flex items-center justify-center bg-opacity-40">
               <span className="text-white text-lg font-semibold drop-shadow-lg">
                 Coming Soon
               </span>

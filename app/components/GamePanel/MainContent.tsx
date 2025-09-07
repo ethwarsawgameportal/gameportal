@@ -3,7 +3,7 @@ import { cn } from "@/app/utils/utils";
 import { MarketItem } from "./types";
 import GameCard from "./GameCard";
 import { WalletInfo } from "../CivicAuth";
-import { useUser } from "@civic/auth-web3/react";
+import { useUser } from "@civic/auth/react";
 
 interface MainContentProps {
   open: boolean;

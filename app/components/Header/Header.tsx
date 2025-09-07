@@ -17,6 +17,8 @@ import { useUser } from "@civic/auth-web3/react";
 import { useWallet } from "@civic/auth-web3/react";
 import { ConnectWallet } from "@coinbase/onchainkit/wallet";
 import { useAccount } from "wagmi";
+import { UserReferral } from "../UserReferral";
+import { UserTicket } from "../UserTicket/UserTicket";
 
 type HeaderProps = {
   pageType?: "main" | "explore" | "game";
@@ -45,18 +47,6 @@ const Header: React.FC<HeaderProps> = ({ pageType = "game" }) => {
   } catch (error) {
     console.log("Wallet not available yet:", error);
   }
-
-  const handleCopyAddress = async () => {
-    if (!address) return;
-
-    try {
-      await navigator.clipboard.writeText(address);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error("Failed to copy address:", err);
-    }
-  };
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -107,7 +97,7 @@ const Header: React.FC<HeaderProps> = ({ pageType = "game" }) => {
     <>
       <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-6">
             <Logo className="w-8 h-8" />
             <span
               className="font-semibold tracking-tight cursor-pointer"
@@ -117,15 +107,34 @@ const Header: React.FC<HeaderProps> = ({ pageType = "game" }) => {
             >
               Game Portal
             </span>
+            {pageType === "main" ? (
+              <span
+                className="ml-2 gap-2 font-semibold tracking-tight cursor-pointer text-nowrap flex flex-nowrap"
+                onClick={() => (window.location.href = "/explore")}
+              >
+                Launch App <ArrowRight className="w-4 h-4" />
+              </span>
+            ) : (
+              <></>
+            )}
           </div>
 
           <div className="flex items-center gap-3">
+            <UserReferral />
+            <UserTicket />
             {pageType === "main" ? (
               <Button
                 className="gap-2"
                 onClick={() => (window.location.href = "/explore")}
               >
                 Launch App <ArrowRight className="w-4 h-4" />
+                <div className="w-8 h-8 bg-blue-100 dark:bg-blue-600 rounded-full flex items-center justify-center">
+                  <User className="w-4 h-4 text-white " />
+                </div>
+                <span className="text-sm font-medium text-slate-900 dark:text-white">
+                  {user?.email || user?.name || "User"}
+                </span>
+                <ChevronDown className="w-4 h-4 text-slate-500" />
               </Button>
             ) : (
               <></>

@@ -38,7 +38,7 @@ export const CivicAuth: React.FC = () => {
         {isLoading ? (
           <Button variant="outline" size="sm" disabled className="gap-2">
             <Loader2 className="w-4 h-4 animate-spin" />
-            Loading...
+            <span className="text-slate-600">Loading...</span>
           </Button>
         ) : (
           <UserButton />
