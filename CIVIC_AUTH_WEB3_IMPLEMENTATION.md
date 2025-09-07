@@ -24,7 +24,7 @@ const nextConfig = {
 };
 
 const withCivicAuth = createCivicAuthPlugin({
-  clientId: "e21eb711-8a2b-493c-aaee-d5db5561a5a7"
+  clientId: ""
 });
 
 export default withCivicAuth(nextConfig);
@@ -68,7 +68,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <CivicAuthProvider
-          clientId="e21eb711-8a2b-493c-aaee-d5db5561a5a7"
+          clientId=""
           autoCreateWallet={true}
           autoConnectEmbeddedWallet={true}
         >

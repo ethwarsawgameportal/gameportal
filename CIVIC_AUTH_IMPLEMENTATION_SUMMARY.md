@@ -13,7 +13,7 @@
 
 ### **3. Layout Integration**
 - ✅ **app/layout.tsx**: Added `CivicAuthProvider` with:
-  - Client ID: `e21eb711-8a2b-493c-aaee-d5db5561a5a7`
+  - Client ID: ``
   - `autoCreateWallet={true}` - Automatically creates wallets for new users
   - `autoConnectEmbeddedWallet={true}` - Automatically connects embedded wallets
 
@@ -75,7 +75,7 @@
 - **Layout**: Global Civic Auth provider
 
 #### **Configuration:**
-- **Client ID**: `e21eb711-8a2b-493c-aaee-d5db5561a5a7`
+- **Client ID**: ``
 - **Network**: Base blockchain
 - **Auto-wallet creation**: Enabled
 - **Auto-connection**: Enabled

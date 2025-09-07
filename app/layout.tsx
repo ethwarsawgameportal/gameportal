@@ -45,7 +45,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-background">
         <CivicAuthProvider
-          clientId="e21eb711-8a2b-493c-aaee-d5db5561a5a7"
+          clientId={process.env.NEXT_PUBLIC_CIVIC_CLIENT_ID!}
           autoCreateWallet={true}
           autoConnectEmbeddedWallet={true}
         >
