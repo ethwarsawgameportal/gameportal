@@ -12,7 +12,7 @@ const MainContent: React.FC<MainContentProps> = ({ open, filteredItems }) => {
   return (
     <main
       className={cn(
-        "flex-1 p-6 transition-[margin]",
+        "flex-1 p-6 transition-[margin] overflow-y-auto h-full mb-5",
         open ? "md:ml-0" : "md:ml-0",
       )}
     >
@@ -24,7 +24,7 @@ const MainContent: React.FC<MainContentProps> = ({ open, filteredItems }) => {
           No results — change filters or query.
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 overflow-y-auto mb-10">
           {filteredItems.map((item) => (
             <GameCard key={item.id} item={item} />
           ))}

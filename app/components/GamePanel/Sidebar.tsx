@@ -35,12 +35,12 @@ const Sidebar: React.FC<SidebarProps> = ({
         )}
         role="dialog"
         aria-modal="true"
-        aria-label="Panel filtrów"
+        aria-label="Filter panel"
       >
         <div className="h-12 flex items-center justify-between mb-4">
-          <span className="font-semibold">Filtry</span>
+          <span className="font-semibold">Filters</span>
           <button
-            aria-label="Zamknij"
+            aria-label="Close"
             onClick={onClose}
             className="p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800"
           >
@@ -61,7 +61,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
         <div className="space-y-2">
           <label htmlFor="search" className="text-sm font-medium">
-            Wyszukaj
+            Search
           </label>
           <div className="relative">
             <svg
@@ -78,7 +78,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             </svg>
             <Input
               id="search"
-              placeholder="Szukaj zadań, trybów…"
+              placeholder="Search tasks, modes…"
               value={query}
               onChange={(e) => onQueryChange(e.target.value)}
               className="pl-9"
@@ -87,7 +87,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         <div className="space-y-3">
-          <span className="text-sm font-medium">Tryb</span>
+          <span className="text-sm font-medium">Mode</span>
           <label className="flex items-center gap-3 text-sm">
             <Checkbox
               checked={onlyWithOther}
@@ -98,7 +98,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         <div className="space-y-3">
-          <span className="text-sm font-medium">Poziom trudności</span>
+          <span className="text-sm font-medium">Difficulty level</span>
           <div className="space-y-2">
             {(["easy", "medium", "hard"] as const).map((lvl) => (
               <label key={lvl} className="flex items-center gap-3 text-sm">
@@ -115,7 +115,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
       <button
         onClick={onClose}
-        aria-label="Zamknij panel"
+        aria-label="Close panel"
         className={cn(
           "fixed inset-0 z-40 bg-black/30 md:hidden transition-opacity",
           open

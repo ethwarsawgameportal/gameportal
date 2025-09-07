@@ -15,7 +15,7 @@ const FilterToggleButton: React.FC<FilterToggleButtonProps> = ({
     <button
       onClick={onOpen}
       className="fixed left-3 top-20 sm:top-24 z-40 inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 backdrop-blur px-3 py-1.5 text-sm shadow-sm"
-      aria-label="Otwórz filtry"
+      aria-label="Open filters"
     >
       <svg
         className="w-4 h-4"
@@ -28,7 +28,7 @@ const FilterToggleButton: React.FC<FilterToggleButtonProps> = ({
       >
         <polygon points="22 3 2 3 10 12 10 19 14 21 14 12 22 3"></polygon>
       </svg>
-      Filtry
+      Filters
     </button>
   );
 };
