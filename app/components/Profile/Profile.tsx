@@ -133,7 +133,7 @@ export const Profile: React.FC<ProfileProps> = ({
           <span>Profile</span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 pt-6">
         {/* User Info */}
         <div className="space-y-2">
           {user && (

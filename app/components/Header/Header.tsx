@@ -104,7 +104,8 @@ const Header: React.FC<HeaderProps> = ({ pageType = "game" }) => {
   const isAnyWalletConnected = user || isCoinbaseConnected;
 
   return (
-    <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800">
+    <>
+      <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Logo className="w-8 h-8" />
@@ -175,15 +176,16 @@ const Header: React.FC<HeaderProps> = ({ pageType = "game" }) => {
           )}
         </div>
       </div>
+    </header>
 
-      {/* Wallet Selection Modal */}
+      {/* Wallet Selection Modal - Outside header for proper positioning */}
       <WalletSelectionModal
         isOpen={showWalletSelection}
         onClose={() => setShowWalletSelection(false)}
         onSelectCivic={handleSelectCivic}
         onSelectCoinbase={handleSelectCoinbase}
       />
-    </header>
+    </>
   );
 };
 
