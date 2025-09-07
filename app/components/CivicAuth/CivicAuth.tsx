@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useUser, UserButton } from "@civic/auth/react";
+import { useUser, UserButton } from "@civic/auth-web3/react";
 import { Button } from "@/components/ui/button";
 import { Check, Loader2 } from "lucide-react";
 

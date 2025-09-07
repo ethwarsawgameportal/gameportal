@@ -3,7 +3,7 @@ import "@coinbase/onchainkit/styles.css";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
-import { CivicAuthProvider } from "@civic/auth/nextjs";
+import { CivicAuthProvider } from "@civic/auth-web3/react";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -44,7 +44,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-background">
-        <CivicAuthProvider>
+        <CivicAuthProvider
+          clientId={
+            process.env.NEXT_PUBLIC_CIVIC_CLIENT_ID ||
+            "e21eb711-8a2b-493c-aaee-d5db5561a5a7"
+          }
+          autoCreateWallet={true}
+          autoConnectEmbeddedWallet={true}
+        >
           <Providers>{children}</Providers>
         </CivicAuthProvider>
       </body>
