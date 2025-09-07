@@ -3,7 +3,7 @@ import Header from "../Header";
 import Hero from "../Hero";
 import Description from "../Description";
 import HowItWorks from "../HowItWorks";
-import Roadmap from "../Roadmap";
+// import Roadmap from "../Roadmap";
 import Community from "../Community";
 import Footer from "../Footer";
 
