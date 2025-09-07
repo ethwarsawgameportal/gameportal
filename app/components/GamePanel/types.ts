@@ -7,6 +7,7 @@ export interface MarketItem {
   gradient: string;
   backgroud: string;
   isComingSoon: boolean;
+  ticketCost: number;
 }
 
 export const MARKET_ITEMS: MarketItem[] = [
@@ -20,6 +21,7 @@ export const MARKET_ITEMS: MarketItem[] = [
     gradient: "from-emerald-200 via-cyan-200 to-blue-200",
     backgroud: "explorer/Tetris.png",
     isComingSoon: false,
+    ticketCost: 1,
   },
   {
     id: 2,
@@ -31,6 +33,7 @@ export const MARKET_ITEMS: MarketItem[] = [
     gradient: "from-violet-200 via-purple-200 to-fuchsia-200",
     backgroud: "explorer/TicTacToe.png",
     isComingSoon: false,
+    ticketCost: 1,
   },
   {
     id: 3,
@@ -42,6 +45,7 @@ export const MARKET_ITEMS: MarketItem[] = [
     gradient: "from-indigo-200 via-blue-200 to-cyan-200",
     backgroud: "explorer/Chess.png",
     isComingSoon: true,
+    ticketCost: 1,
   },
   {
     id: 4,
@@ -53,6 +57,7 @@ export const MARKET_ITEMS: MarketItem[] = [
     gradient: "from-rose-200 via-pink-200 to-purple-200",
     backgroud: "explorer/Checkers.png",
     isComingSoon: true,
+    ticketCost: 1,
   },
   {
     id: 5,
@@ -64,5 +69,6 @@ export const MARKET_ITEMS: MarketItem[] = [
     gradient: "from-amber-200 via-yellow-200 to-orange-200",
     backgroud: "explorer/Go.png",
     isComingSoon: true,
+    ticketCost: 1,
   },
 ];

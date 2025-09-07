@@ -1,7 +1,7 @@
 "use client";
 import Tetris from "react-tetris";
 import React, { useEffect, useState } from "react";
-import Headers from "../Header";
+import Header from "../Header";
 
 export const DappTetrisPage: React.FC = () => {
   const [isClient, setIsClient] = useState(false);
@@ -23,7 +23,7 @@ export const DappTetrisPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900 text-slate-900 dark:text-white">
-      <Headers />
+      <Header pageType="game" />
 
       <div className="flex" style={{ height: "calc(100vh - 65px)" }}>
         <div className="min-h-screen bg-gray-100 p-4">
