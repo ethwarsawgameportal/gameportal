@@ -2,6 +2,9 @@ import React from "react";
 import { cn } from "@/app/utils/utils";
 import { MarketItem } from "./types";
 import GameCard from "./GameCard";
+import { WalletInfo } from "../CivicAuth";
+import { Profile } from "../Profile";
+import { useUser } from "@civic/auth/react";
 
 interface MainContentProps {
   open: boolean;
@@ -9,6 +12,8 @@ interface MainContentProps {
 }
 
 const MainContent: React.FC<MainContentProps> = ({ open, filteredItems }) => {
+  const { user } = useUser();
+
   return (
     <main
       className={cn(
@@ -19,6 +24,21 @@ const MainContent: React.FC<MainContentProps> = ({ open, filteredItems }) => {
       <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6">
         Explore
       </h1>
+
+      {/* Profile Section - Show when user is logged in */}
+      {user && (
+        <div className="mb-6">
+          <Profile variant="full" />
+        </div>
+      )}
+
+      {/* Wallet Information Section - Show when user is not logged in */}
+      {!user && (
+        <div className="mb-6">
+          <WalletInfo />
+        </div>
+      )}
+
       {filteredItems.length === 0 ? (
         <div className="text-sm text-slate-500">
           No results — change filters or query.
