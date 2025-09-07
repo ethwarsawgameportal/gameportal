@@ -11,7 +11,7 @@ npm install @civic/auth-web3 @solana/wallet-adapter-react
 ## 2. Next.js Configuration (next.config.mjs)
 
 ```javascript
-import { createCivicAuthPlugin } from "@civic/auth/nextjs"
+import { createCivicAuthPlugin } from "@civic/auth/nextjs";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -24,7 +24,7 @@ const nextConfig = {
 };
 
 const withCivicAuth = createCivicAuthPlugin({
-  clientId: ""
+  clientId: "",
 });
 
 export default withCivicAuth(nextConfig);
@@ -85,16 +85,16 @@ export default function RootLayout({
 ## 4. API Route (app/api/auth/[...civicauth]/route.ts)
 
 ```typescript
-import { handler } from '@civic/auth/nextjs'
+import { handler } from "@civic/auth/nextjs";
 
-export const GET = handler()
-export const POST = handler()
+export const GET = handler();
+export const POST = handler();
 ```
 
 ## 5. Middleware (app/middleware.ts)
 
 ```typescript
-import { authMiddleware } from '@civic/auth/nextjs/middleware'
+import { authMiddleware } from "@civic/auth/nextjs/middleware";
 
 export default authMiddleware();
 
@@ -107,9 +107,9 @@ export const config = {
      * - favicon.ico, sitemap.xml, robots.txt
      * - image files
      */
-    '/((?!_next|favicon.ico|sitemap.xml|robots.txt|.*\.jpg|.*\.png|.*\.svg|.*\.gif).*)',
+    "/((?!_next|favicon.ico|sitemap.xml|robots.txt|.*\.jpg|.*\.png|.*\.svg|.*\.gif).*)",
   ],
-}
+};
 ```
 
 ## 6. Main Page Component (app/page.tsx)
@@ -149,17 +149,17 @@ import { useUser, UserButton, useWallet } from "@civic/auth-web3/react";
 function CivicAuth() {
   try {
     const userContext = useUser();
-    
+
     // Debug: Let's see what we're getting from the hook
     console.log('CivicAuth userContext:', userContext);
-    
+
     // Extract user and loading state - the structure might be different
     const user = userContext?.user;
     const isLoading = userContext?.isLoading;
 
     // Check if user needs a wallet created
     const needsWallet = user && 'createWallet' in userContext && !userContext.walletCreationInProgress;
-    
+
     console.log('CivicAuth state:', { user, isLoading, needsWallet });
 
     if (user) {
@@ -359,7 +359,7 @@ export default function App() {
             </div>
             <div>{saveFrameButton}</div>
           </div>
-          
+
           {/* Civic authentication row */}
           <div className="flex justify-center">
             <CivicAuth />
@@ -369,7 +369,7 @@ export default function App() {
         <main className="flex-1 space-y-4">
           {/* Wallet Information Section */}
           <WalletInfo />
-          
+
           {/* Main Content */}
           {activeTab === "home" && <Home setActiveTab={setActiveTab} />}
           {activeTab === "features" && <Features setActiveTab={setActiveTab} />}
@@ -394,18 +394,21 @@ export default function App() {
 ## 7. Key Features Implemented
 
 ### ✅ **Civic Auth Web3 Integration**
+
 - **Identity Verification**: Users can sign in with Civic Auth
 - **Automatic Wallet Creation**: When users sign in, Civic automatically creates a Web3 wallet
 - **Embedded Wallet**: No need for external wallet extensions
 - **Seamless Experience**: One sign-in gives users both identity and wallet
 
 ### ✅ **Wallet Management**
+
 - **Wallet Creation**: Automatic creation when user signs in
 - **Wallet Display**: Shows wallet address, balance, and network info
 - **Error Handling**: Graceful fallbacks if wallet creation fails
 - **Debug Logging**: Console logs to help troubleshoot issues
 
 ### ✅ **User Experience**
+
 - **Loading States**: Proper loading indicators
 - **Error States**: Fallback UI when things go wrong
 - **Success States**: Clear indication when wallet is created
@@ -434,16 +437,19 @@ NEXT_PUBLIC_URL=your_app_url
 ## 10. Troubleshooting
 
 ### If you see "Loading..." stuck:
+
 - Check browser console for error messages
 - Verify the client ID is correct
 - Ensure all dependencies are installed
 
 ### If wallet creation fails:
+
 - Check network connectivity
 - Verify Civic Auth configuration
 - Look for error messages in console
 
 ### If UserButton doesn't appear:
+
 - Check if CivicAuthProvider is properly wrapping your app
 - Verify imports are correct
 - Check for TypeScript errors

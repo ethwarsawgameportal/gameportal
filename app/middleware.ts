@@ -1,4 +1,4 @@
-import { authMiddleware } from '@civic/auth/nextjs/middleware'
+import { authMiddleware } from "@civic/auth/nextjs/middleware";
 
 export default authMiddleware();
 
@@ -11,6 +11,6 @@ export const config = {
      * - favicon.ico, sitemap.xml, robots.txt
      * - image files
      */
-    '/((?!_next|favicon.ico|sitemap.xml|robots.txt|.*\.jpg|.*\.png|.*\.svg|.*\.gif).*)',
+    "/((?!_next|favicon.ico|sitemap.xml|robots.txt|.*\\.jpg|.*\\.png|.*\\.svg|.*\\.gif).*)",
   ],
-}
+};

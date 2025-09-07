@@ -5,11 +5,13 @@
 ### **🔧 What Was Changed:**
 
 #### **1. Files Updated:**
+
 - **`next.config.mjs`**: Updated Civic Auth plugin to use `process.env.NEXT_PUBLIC_CIVIC_CLIENT_ID`
 - **`app/layout.tsx`**: Updated CivicAuthProvider to use environment variable
 - **`.env.local`**: Created with the client ID value
 
 #### **2. Environment Variable:**
+
 - **Variable Name**: `NEXT_PUBLIC_CIVIC_CLIENT_ID`
 - **Value**: `e21eb711-8a2b-493c-aaee-d5db5561a5a7`
 - **Type**: String
@@ -18,19 +20,21 @@
 ### **📁 Files Modified:**
 
 #### **`next.config.mjs`**
+
 ```javascript
 // Before
 const withCivicAuth = createCivicAuthPlugin({
-  clientId: "e21eb711-8a2b-493c-aaee-d5db5561a5a7"
+  clientId: "e21eb711-8a2b-493c-aaee-d5db5561a5a7",
 });
 
 // After
 const withCivicAuth = createCivicAuthPlugin({
-  clientId: process.env.NEXT_PUBLIC_CIVIC_CLIENT_ID
+  clientId: process.env.NEXT_PUBLIC_CIVIC_CLIENT_ID,
 });
 ```
 
 #### **`app/layout.tsx`**
+
 ```typescript
 // Before
 <CivicAuthProvider
@@ -48,8 +52,9 @@ const withCivicAuth = createCivicAuthPlugin({
 ```
 
 #### **`.env.local`** (Created)
+
 ```bash
-NEXT_PUBLIC_CIVIC_CLIENT_ID=e21eb711-8a2b-493c-aaee-d5db5561a5a7
+NEXT_PUBLIC_CIVIC_CLIENT_ID=
 ```
 
 ### **🎯 Benefits:**
@@ -70,16 +75,19 @@ NEXT_PUBLIC_CIVIC_CLIENT_ID=e21eb711-8a2b-493c-aaee-d5db5561a5a7
 ### **📋 How to Use:**
 
 #### **For Development:**
+
 1. The `.env.local` file is already created with your client ID
 2. The app will automatically use the environment variable
 3. No additional setup required
 
 #### **For Production:**
+
 1. Set the environment variable in your deployment platform
 2. Use the same variable name: `NEXT_PUBLIC_CIVIC_CLIENT_ID`
 3. Set the value to your production client ID
 
 #### **For Different Environments:**
+
 1. **Development**: Use `.env.local` (already set up)
 2. **Staging**: Set environment variable in staging platform
 3. **Production**: Set environment variable in production platform

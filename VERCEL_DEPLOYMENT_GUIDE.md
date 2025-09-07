@@ -15,18 +15,21 @@ The `pnpm-lock.yaml` file has been updated and committed to resolve the Vercel d
 To deploy successfully on Vercel, you need to set up the environment variable:
 
 #### **1. Go to Vercel Dashboard**
+
 - Visit [vercel.com](https://vercel.com)
 - Navigate to your project
 
 #### **2. Add Environment Variable**
+
 - Go to **Settings** → **Environment Variables**
 - Add the following variable:
 
-| Name | Value | Environment |
-|------|-------|-------------|
+| Name                          | Value                                  | Environment                      |
+| ----------------------------- | -------------------------------------- | -------------------------------- |
 | `NEXT_PUBLIC_CIVIC_CLIENT_ID` | `e21eb711-8a2b-493c-aaee-d5db5561a5a7` | Production, Preview, Development |
 
 #### **3. Redeploy**
+
 - Go to **Deployments** tab
 - Click **Redeploy** on the latest deployment
 - Or push a new commit to trigger automatic deployment
@@ -41,6 +44,7 @@ To deploy successfully on Vercel, you need to set up the environment variable:
 ### **🔍 Troubleshooting:**
 
 #### **If you still get lockfile errors:**
+
 ```bash
 # Local fix
 pnpm install
@@ -50,11 +54,13 @@ git push
 ```
 
 #### **If environment variable is missing:**
+
 - Check Vercel dashboard → Settings → Environment Variables
 - Ensure `NEXT_PUBLIC_CIVIC_CLIENT_ID` is set for all environments
 - Redeploy after adding the variable
 
 #### **If Civic Auth doesn't work:**
+
 - Verify the environment variable is set correctly
 - Check the client ID value matches your Civic dashboard
 - Ensure the variable is available in the browser (starts with `NEXT_PUBLIC_`)

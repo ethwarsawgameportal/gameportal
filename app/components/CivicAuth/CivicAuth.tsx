@@ -1,12 +1,11 @@
 "use client";
 
 import React from "react";
-import { useUser, UserButton, useWallet } from "@civic/auth-web3/react";
-import { useBalance } from "wagmi";
+import { useUser, UserButton } from "@civic/auth/react";
 import { Button } from "@/components/ui/button";
-import { Check, Wallet, Loader2 } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
 
-// Civic Auth Component with Web3 wallet creation
+// Civic Auth Component
 export const CivicAuth: React.FC = () => {
   try {
     const userContext = useUser();
@@ -14,14 +13,11 @@ export const CivicAuth: React.FC = () => {
     // Debug: Let's see what we're getting from the hook
     console.log('CivicAuth userContext:', userContext);
     
-    // Extract user and loading state - the structure might be different
+    // Extract user and loading state
     const user = userContext?.user;
     const isLoading = userContext?.isLoading;
-
-    // Check if user needs a wallet created
-    const needsWallet = user && 'createWallet' in userContext && !userContext.walletCreationInProgress;
     
-    console.log('CivicAuth state:', { user, isLoading, needsWallet });
+    console.log('CivicAuth state:', { user, isLoading });
 
     if (user) {
       return (
@@ -60,56 +56,16 @@ export const CivicAuth: React.FC = () => {
   }
 };
 
-// Wallet Info Component to display Civic Web3 wallet details
+// Wallet Info Component - simplified for basic Civic Auth
 export const WalletInfo: React.FC = () => {
   const userContext = useUser();
   const { user } = userContext;
-  const { address } = useWallet({ type: "ethereum" });
-  const { data: balance } = useBalance({
-    address: address,
-  });
-
-  // Debug: Let's see what we're getting
-  console.log('WalletInfo userContext:', userContext);
-  console.log('WalletInfo address:', address);
-
-  // Check if user has a wallet or needs one created
-  const hasWallet = user && 'ethereum' in userContext;
-  const needsWallet = user && 'createWallet' in userContext;
 
   if (!user) {
     return (
       <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
         <p className="text-sm text-gray-600 dark:text-gray-400">
-          Please sign in to access your wallet
-        </p>
-      </div>
-    );
-  }
-
-  if (needsWallet) {
-    return (
-      <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg space-y-3">
-        <h3 className="font-semibold text-yellow-900 dark:text-yellow-100">Create Your Wallet</h3>
-        <p className="text-sm text-yellow-800 dark:text-yellow-200">
-          You're signed in! Let's create your Web3 wallet to get started.
-        </p>
-        <Button
-          onClick={() => userContext.createWallet()}
-          disabled={userContext.walletCreationInProgress}
-          className="bg-yellow-600 hover:bg-yellow-700 text-white"
-        >
-          {userContext.walletCreationInProgress ? 'Creating Wallet...' : 'Create Wallet'}
-        </Button>
-      </div>
-    );
-  }
-
-  if (!hasWallet || !address) {
-    return (
-      <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          Wallet not available
+          Please sign in to access your profile
         </p>
       </div>
     );
@@ -117,27 +73,27 @@ export const WalletInfo: React.FC = () => {
 
   return (
     <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg space-y-2">
-      <h3 className="font-semibold text-blue-900 dark:text-blue-100">Your Civic Web3 Wallet</h3>
+      <h3 className="font-semibold text-blue-900 dark:text-blue-100">Your Civic Profile</h3>
       <div className="space-y-1 text-sm">
         <div>
-          <span className="font-medium text-blue-800 dark:text-blue-200">Address:</span>
-          <p className="font-mono text-xs text-blue-700 dark:text-blue-300 break-all">
-            {address}
-          </p>
-        </div>
-        <div>
-          <span className="font-medium text-blue-800 dark:text-blue-200">Balance:</span>
+          <span className="font-medium text-blue-800 dark:text-blue-200">Email:</span>
           <p className="text-blue-700 dark:text-blue-300">
-            {balance ? `${parseFloat(balance.formatted).toFixed(4)} ${balance.symbol}` : 'Loading...'}
+            {user.email || "Not provided"}
           </p>
         </div>
         <div>
-          <span className="font-medium text-blue-800 dark:text-blue-200">Network:</span>
-          <p className="text-blue-700 dark:text-blue-300">Base</p>
+          <span className="font-medium text-blue-800 dark:text-blue-200">Name:</span>
+          <p className="text-blue-700 dark:text-blue-300">
+            {user.name || "Not provided"}
+          </p>
         </div>
         <div>
-          <span className="font-medium text-blue-800 dark:text-blue-200">Type:</span>
-          <p className="text-blue-700 dark:text-blue-300">Civic Embedded Wallet</p>
+          <span className="font-medium text-blue-800 dark:text-blue-200">Status:</span>
+          <p className="text-blue-700 dark:text-blue-300">Identity Verified</p>
+        </div>
+        <div>
+          <span className="font-medium text-blue-800 dark:text-blue-200">Provider:</span>
+          <p className="text-blue-700 dark:text-blue-300">Civic Auth</p>
         </div>
       </div>
     </div>

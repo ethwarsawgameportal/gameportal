@@ -12,11 +12,13 @@ NEXT_PUBLIC_CIVIC_CLIENT_ID=
 ## How to Set Up
 
 1. **Create `.env.local` file** in the root directory:
+
    ```bash
    touch .env.local
    ```
 
 2. **Add the environment variable**:
+
    ```bash
    echo "NEXT_PUBLIC_CIVIC_CLIENT_ID=" >> .env.local
    ```
@@ -43,5 +45,6 @@ NEXT_PUBLIC_CIVIC_CLIENT_ID=
 ## Files Updated
 
 The following files now use the environment variable:
+
 - `next.config.mjs` - Civic Auth plugin configuration
 - `app/layout.tsx` - CivicAuthProvider configuration

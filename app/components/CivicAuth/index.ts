@@ -1,1 +1,1 @@
-export { CivicAuth, WalletInfo } from './CivicAuth';
+export { CivicAuth, WalletInfo } from "./CivicAuth";
