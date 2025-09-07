@@ -2,10 +2,10 @@ import { useRef, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { BadgePlus, ChevronDown, Copy, Loader2 } from "lucide-react";
 import { useUser } from "@civic/auth-web3/react";
-import { 
-  useGetReferralCode, 
-  useCreateReferralCode, 
-  useReferralStats 
+import {
+  useGetReferralCode,
+  useCreateReferralCode,
+  useReferralStats,
 } from "@/lib/referral-api";
 
 export const UserReferralDown = () => {
@@ -18,8 +18,11 @@ export const UserReferralDown = () => {
   const walletAddress = user?.id;
 
   // API hooks
-  const { data: referralData, isLoading: isLoadingReferral } = useGetReferralCode(walletAddress);
-  const { data: statsData, isLoading: isLoadingStats } = useReferralStats(referralData?.referral_code);
+  const { data: referralData, isLoading: isLoadingReferral } =
+    useGetReferralCode(walletAddress);
+  const { data: statsData, isLoading: isLoadingStats } = useReferralStats(
+    referralData?.referral_code,
+  );
   const createReferralMutation = useCreateReferralCode();
 
   useEffect(() => {
@@ -53,7 +56,7 @@ export const UserReferralDown = () => {
         setCopySuccess(true);
         setTimeout(() => setCopySuccess(false), 2000);
       } catch (error) {
-        console.error('Failed to copy referral code:', error);
+        console.error("Failed to copy referral code:", error);
       }
     }
   };
@@ -82,7 +85,7 @@ export const UserReferralDown = () => {
         <div className="absolute right-0 top-full mt-2 w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg z-50">
           <div className="p-4">
             <h3 className="text-lg font-semibold mb-4">User Referrals</h3>
-            
+
             {isLoadingReferral ? (
               <div className="flex items-center justify-center py-8">
                 <Loader2 className="w-6 h-6 animate-spin" />
@@ -104,7 +107,7 @@ export const UserReferralDown = () => {
                       Creating...
                     </>
                   ) : (
-                    'Create Referral Code'
+                    "Create Referral Code"
                   )}
                 </Button>
               </div>

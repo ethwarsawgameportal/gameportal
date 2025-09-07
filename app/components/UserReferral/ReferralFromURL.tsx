@@ -10,7 +10,7 @@ export const ReferralFromURL = () => {
 
   useEffect(() => {
     // Get referral code from URL parameter
-    const refFromURL = searchParams.get('ref');
+    const refFromURL = searchParams.get("ref");
     if (refFromURL) {
       setReferralCode(refFromURL);
     }
@@ -21,7 +21,8 @@ export const ReferralFromURL = () => {
       {referralCode && (
         <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
           <p className="text-sm text-blue-800 dark:text-blue-200">
-            🎉 You're using referral code: <span className="font-mono font-bold">{referralCode}</span>
+            🎉 You&apos;re using referral code:{" "}
+            <span className="font-mono font-bold">{referralCode}</span>
           </p>
         </div>
       )}
@@ -36,14 +37,15 @@ interface EnhancedReferralInputProps {
   onPurchaseComplete?: () => void;
 }
 
-export const EnhancedReferralInput = ({ 
-  defaultReferralCode = "", 
-  onPurchaseComplete 
+export const EnhancedReferralInput = ({
+  defaultReferralCode = "",
+  onPurchaseComplete,
 }: EnhancedReferralInputProps) => {
   const [referralCode, setReferralCode] = useState(defaultReferralCode);
   const { user } = useUser();
-  const { purchaseTicketWithReferral, isLoading, error } = useTicketPurchaseWithReferral();
-  
+  const { purchaseTicketWithReferral, isLoading, error } =
+    useTicketPurchaseWithReferral();
+
   // Update when default changes
   useEffect(() => {
     setReferralCode(defaultReferralCode);
@@ -51,7 +53,7 @@ export const EnhancedReferralInput = ({
 
   const handlePurchase = async () => {
     if (!user?.id) return;
-    
+
     try {
       await purchaseTicketWithReferral(user.id, referralCode || undefined);
       onPurchaseComplete?.();
@@ -64,11 +66,11 @@ export const EnhancedReferralInput = ({
   if (!user) {
     return null;
   }
-  
+
   return (
     <div className="space-y-4 p-4 border border-slate-200 dark:border-slate-700 rounded-lg">
       <h3 className="text-lg font-semibold">Purchase Ticket</h3>
-      
+
       <div className="space-y-2">
         <label htmlFor="referral-code" className="text-sm font-medium">
           Referral Code {defaultReferralCode && "(Pre-filled from link)"}
@@ -100,13 +102,14 @@ export const EnhancedReferralInput = ({
             Processing...
           </>
         ) : (
-          'Purchase Ticket'
+          "Purchase Ticket"
         )}
       </button>
 
       {referralCode && (
         <p className="text-xs text-slate-500">
-          Using referral code: <span className="font-mono font-bold">{referralCode}</span>
+          Using referral code:{" "}
+          <span className="font-mono font-bold">{referralCode}</span>
         </p>
       )}
     </div>

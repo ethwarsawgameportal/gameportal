@@ -12,11 +12,12 @@ interface ReferralInputProps {
 export const ReferralInput = ({ onPurchaseComplete }: ReferralInputProps) => {
   const [referralCode, setReferralCode] = useState("");
   const { user } = useUser();
-  const { purchaseTicketWithReferral, isLoading, error } = useTicketPurchaseWithReferral();
+  const { purchaseTicketWithReferral, isLoading, error } =
+    useTicketPurchaseWithReferral();
 
   const handlePurchase = async () => {
     if (!user?.id) return;
-    
+
     try {
       await purchaseTicketWithReferral(user.id, referralCode || undefined);
       onPurchaseComplete?.();
@@ -33,7 +34,7 @@ export const ReferralInput = ({ onPurchaseComplete }: ReferralInputProps) => {
   return (
     <div className="space-y-4 p-4 border border-slate-200 dark:border-slate-700 rounded-lg">
       <h3 className="text-lg font-semibold">Purchase Ticket</h3>
-      
+
       <div className="space-y-2">
         <label htmlFor="referral-code" className="text-sm font-medium">
           Referral Code (Optional)
@@ -54,18 +55,14 @@ export const ReferralInput = ({ onPurchaseComplete }: ReferralInputProps) => {
         </div>
       )}
 
-      <Button
-        onClick={handlePurchase}
-        disabled={isLoading}
-        className="w-full"
-      >
+      <Button onClick={handlePurchase} disabled={isLoading} className="w-full">
         {isLoading ? (
           <>
             <Loader2 className="w-4 h-4 animate-spin mr-2" />
             Processing...
           </>
         ) : (
-          'Purchase Ticket'
+          "Purchase Ticket"
         )}
       </Button>
 
