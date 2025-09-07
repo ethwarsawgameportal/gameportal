@@ -106,77 +106,77 @@ const Header: React.FC<HeaderProps> = ({ pageType = "game" }) => {
   return (
     <>
       <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Logo className="w-8 h-8" />
-          <span
-            className="font-semibold tracking-tight cursor-pointer"
-            onClick={() =>
-              pageType === "explore" && (window.location.href = "/")
-            }
-          >
-            Game Portal
-          </span>
-        </div>
-
-        <div className="flex items-center gap-3">
-          {pageType === "main" ? (
-            <Button
-              className="gap-2"
-              onClick={() => (window.location.href = "/explore")}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Logo className="w-8 h-8" />
+            <span
+              className="font-semibold tracking-tight cursor-pointer"
+              onClick={() =>
+                pageType === "explore" && (window.location.href = "/")
+              }
             >
-              Launch App <ArrowRight className="w-4 h-4" />
-            </Button>
-          ) : (
-            <></>
-          )}
+              Game Portal
+            </span>
+          </div>
 
-          {/* Show profile if any wallet is connected, otherwise show auth */}
-          {isAnyWalletConnected ? (
-            <div className="relative" ref={dropdownRef}>
+          <div className="flex items-center gap-3">
+            {pageType === "main" ? (
               <Button
-                variant="ghost"
-                onClick={() => setShowProfileDropdown(!showProfileDropdown)}
-                className="flex items-center gap-2 px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-800"
+                className="gap-2"
+                onClick={() => (window.location.href = "/explore")}
               >
-                <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
-                  <User className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                </div>
-                <span className="text-sm font-medium text-slate-900 dark:text-white">
-                  {user?.email ||
-                    user?.name ||
-                    (coinbaseAddress
-                      ? `${coinbaseAddress.slice(0, 6)}...${coinbaseAddress.slice(-4)}`
-                      : "User")}
-                </span>
-                <ChevronDown className="w-4 h-4 text-slate-500" />
+                Launch App <ArrowRight className="w-4 h-4" />
               </Button>
+            ) : (
+              <></>
+            )}
 
-              {showProfileDropdown && (
-                <div className="absolute right-0 top-full mt-2 w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg z-50">
-                  <Profile variant="full" className="border-0 shadow-none" />
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="flex items-center gap-2">
-              {walletType === "coinbase" ? (
-                <ConnectWallet />
-              ) : walletType === "civic" ? (
-                <CivicAuth />
-              ) : (
+            {/* Show profile if any wallet is connected, otherwise show auth */}
+            {isAnyWalletConnected ? (
+              <div className="relative" ref={dropdownRef}>
                 <Button
-                  onClick={handleWalletSelection}
-                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                  variant="ghost"
+                  onClick={() => setShowProfileDropdown(!showProfileDropdown)}
+                  className="flex items-center gap-2 px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-800"
                 >
-                  Sign In
+                  <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+                    <User className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <span className="text-sm font-medium text-slate-900 dark:text-white">
+                    {user?.email ||
+                      user?.name ||
+                      (coinbaseAddress
+                        ? `${coinbaseAddress.slice(0, 6)}...${coinbaseAddress.slice(-4)}`
+                        : "User")}
+                  </span>
+                  <ChevronDown className="w-4 h-4 text-slate-500" />
                 </Button>
-              )}
-            </div>
-          )}
+
+                {showProfileDropdown && (
+                  <div className="absolute right-0 top-full mt-2 w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg z-50">
+                    <Profile variant="full" className="border-0 shadow-none" />
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                {walletType === "coinbase" ? (
+                  <ConnectWallet />
+                ) : walletType === "civic" ? (
+                  <CivicAuth />
+                ) : (
+                  <Button
+                    onClick={handleWalletSelection}
+                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                  >
+                    Sign In
+                  </Button>
+                )}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
 
       {/* Wallet Selection Modal - Outside header for proper positioning */}
       <WalletSelectionModal
