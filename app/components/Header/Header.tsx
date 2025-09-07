@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { ArrowRight, Wallet, Copy, Check } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { ArrowRight, Wallet, Copy, Check, User, ChevronDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Logo } from "../shared";
@@ -15,6 +15,8 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ pageType = "game" }) => {
   const { user } = useUser();
   const [copied, setCopied] = useState(false);
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Safely get wallet info with error handling
   let address: string | undefined;
@@ -39,6 +41,20 @@ const Header: React.FC<HeaderProps> = ({ pageType = "game" }) => {
       console.error("Failed to copy address:", err);
     }
   };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowProfileDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800">
@@ -69,25 +85,26 @@ const Header: React.FC<HeaderProps> = ({ pageType = "game" }) => {
 
           {/* Show profile if user is logged in, otherwise show auth */}
           {user ? (
-            <div className="flex items-center gap-3">
-              {isConnected && address && (
-                <div
-                  className="flex items-center gap-2 px-3 py-1 bg-blue-50 dark:bg-blue-900/20 rounded-lg cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
-                  onClick={handleCopyAddress}
-                  title="Click to copy wallet address"
-                >
-                  <Wallet className="w-4 h-4 text-blue-600" />
-                  <span className="text-sm font-mono text-blue-700 dark:text-blue-300">
-                    {`${address.slice(0, 6)}...${address.slice(-4)}`}
-                  </span>
-                  {copied ? (
-                    <Check className="w-3 h-3 text-green-600" />
-                  ) : (
-                    <Copy className="w-3 h-3 text-blue-600" />
-                  )}
+            <div className="relative" ref={dropdownRef}>
+              <Button
+                variant="ghost"
+                onClick={() => setShowProfileDropdown(!showProfileDropdown)}
+                className="flex items-center gap-2 px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-800"
+              >
+                <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+                  <User className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                </div>
+                <span className="text-sm font-medium text-slate-900 dark:text-white">
+                  {user.email || user.name || "User"}
+                </span>
+                <ChevronDown className="w-4 h-4 text-slate-500" />
+              </Button>
+              
+              {showProfileDropdown && (
+                <div className="absolute right-0 top-full mt-2 w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg z-50">
+                  <Profile variant="full" className="border-0 shadow-none" />
                 </div>
               )}
-              <Profile variant="compact" />
             </div>
           ) : (
             <CivicAuth />
