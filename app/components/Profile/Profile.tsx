@@ -5,10 +5,7 @@ import { useUser } from "@civic/auth/react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  User, 
-  CheckCircle
-} from "lucide-react";
+import { User, CheckCircle } from "lucide-react";
 
 interface ProfileProps {
   variant?: "compact" | "full";
@@ -43,7 +40,10 @@ export const Profile: React.FC<ProfileProps> = ({
             </span>
           </div>
         </div>
-        <Badge variant="secondary" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+        <Badge
+          variant="secondary"
+          className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+        >
           <CheckCircle className="w-3 h-3 mr-1" />
           Verified
         </Badge>
@@ -63,20 +63,29 @@ export const Profile: React.FC<ProfileProps> = ({
         {/* User Info */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-slate-600 dark:text-slate-400">Email</span>
+            <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
+              Email
+            </span>
             <span className="text-sm text-slate-900 dark:text-white">
               {user.email || "Not provided"}
             </span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-slate-600 dark:text-slate-400">Name</span>
+            <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
+              Name
+            </span>
             <span className="text-sm text-slate-900 dark:text-white">
               {user.name || "Not provided"}
             </span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-slate-600 dark:text-slate-400">Status</span>
-            <Badge variant="secondary" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+            <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
+              Status
+            </span>
+            <Badge
+              variant="secondary"
+              className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+            >
               <CheckCircle className="w-3 h-3 mr-1" />
               Verified
             </Badge>
@@ -87,17 +96,25 @@ export const Profile: React.FC<ProfileProps> = ({
         <div className="border-t pt-4 space-y-3">
           <div className="flex items-center space-x-2">
             <CheckCircle className="w-4 h-4 text-green-600" />
-            <span className="font-medium text-slate-900 dark:text-white">Identity Information</span>
+            <span className="font-medium text-slate-900 dark:text-white">
+              Identity Information
+            </span>
           </div>
-          
+
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-slate-600 dark:text-slate-400">Provider</span>
-              <span className="text-sm text-slate-900 dark:text-white">Civic Auth</span>
+              <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
+                Provider
+              </span>
+              <span className="text-sm text-slate-900 dark:text-white">
+                Civic Auth
+              </span>
             </div>
-            
+
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-slate-600 dark:text-slate-400">Verification</span>
+              <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
+                Verification
+              </span>
               <Badge variant="outline" className="text-xs">
                 Identity Verified
               </Badge>

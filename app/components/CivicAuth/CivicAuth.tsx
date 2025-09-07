@@ -9,15 +9,15 @@ import { Check, Loader2 } from "lucide-react";
 export const CivicAuth: React.FC = () => {
   try {
     const userContext = useUser();
-    
+
     // Debug: Let's see what we're getting from the hook
-    console.log('CivicAuth userContext:', userContext);
-    
+    console.log("CivicAuth userContext:", userContext);
+
     // Extract user and loading state
     const user = userContext?.user;
     const isLoading = userContext?.isLoading;
-    
-    console.log('CivicAuth state:', { user, isLoading });
+
+    console.log("CivicAuth state:", { user, isLoading });
 
     if (user) {
       return (
@@ -46,7 +46,7 @@ export const CivicAuth: React.FC = () => {
       </div>
     );
   } catch (error) {
-    console.error('CivicAuth error:', error);
+    console.error("CivicAuth error:", error);
     // Fallback: just show the UserButton
     return (
       <div className="flex items-center">
@@ -73,26 +73,36 @@ export const WalletInfo: React.FC = () => {
 
   return (
     <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg space-y-2">
-      <h3 className="font-semibold text-blue-900 dark:text-blue-100">Your Civic Profile</h3>
+      <h3 className="font-semibold text-blue-900 dark:text-blue-100">
+        Your Civic Profile
+      </h3>
       <div className="space-y-1 text-sm">
         <div>
-          <span className="font-medium text-blue-800 dark:text-blue-200">Email:</span>
+          <span className="font-medium text-blue-800 dark:text-blue-200">
+            Email:
+          </span>
           <p className="text-blue-700 dark:text-blue-300">
             {user.email || "Not provided"}
           </p>
         </div>
         <div>
-          <span className="font-medium text-blue-800 dark:text-blue-200">Name:</span>
+          <span className="font-medium text-blue-800 dark:text-blue-200">
+            Name:
+          </span>
           <p className="text-blue-700 dark:text-blue-300">
             {user.name || "Not provided"}
           </p>
         </div>
         <div>
-          <span className="font-medium text-blue-800 dark:text-blue-200">Status:</span>
+          <span className="font-medium text-blue-800 dark:text-blue-200">
+            Status:
+          </span>
           <p className="text-blue-700 dark:text-blue-300">Identity Verified</p>
         </div>
         <div>
-          <span className="font-medium text-blue-800 dark:text-blue-200">Provider:</span>
+          <span className="font-medium text-blue-800 dark:text-blue-200">
+            Provider:
+          </span>
           <p className="text-blue-700 dark:text-blue-300">Civic Auth</p>
         </div>
       </div>
