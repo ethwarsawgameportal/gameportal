@@ -1,6 +1,3 @@
-
-import React from "react";
-import { ArrowRight } from "lucide-react";
 import React, { useState } from "react";
 import { ArrowRight, Wallet, Copy, Check } from "lucide-react";
 
