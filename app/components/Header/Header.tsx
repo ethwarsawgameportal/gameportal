@@ -12,8 +12,11 @@ import { Button } from "@/components/ui/button";
 import { Logo } from "../shared";
 import { CivicAuth } from "../CivicAuth";
 import { Profile } from "../Profile";
+import { WalletSelectionModal } from "../WalletSelection";
 import { useUser } from "@civic/auth-web3/react";
 import { useWallet } from "@civic/auth-web3/react";
+import { ConnectWallet } from "@coinbase/onchainkit/wallet";
+import { useAccount } from "wagmi";
 
 type HeaderProps = {
   pageType?: "main" | "explore" | "game";
@@ -21,8 +24,14 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ pageType = "game" }) => {
   const { user } = useUser();
+  const { address: coinbaseAddress, isConnected: isCoinbaseConnected } =
+    useAccount();
   const [copied, setCopied] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  const [showWalletSelection, setShowWalletSelection] = useState(false);
+  const [walletType, setWalletType] = useState<"civic" | "coinbase" | null>(
+    null,
+  );
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Safely get wallet info with error handling
@@ -66,6 +75,34 @@ const Header: React.FC<HeaderProps> = ({ pageType = "game" }) => {
     };
   }, []);
 
+  const handleWalletSelection = () => {
+    // Reset wallet type to force selection every time
+    setWalletType(null);
+    setShowWalletSelection(true);
+  };
+
+  const handleSelectCivic = () => {
+    setWalletType("civic");
+    setShowWalletSelection(false);
+    // Civic auth will be handled by the existing CivicAuth component
+  };
+
+  const handleSelectCoinbase = () => {
+    setWalletType("coinbase");
+    setShowWalletSelection(false);
+    // Coinbase wallet connection will be handled by ConnectWallet
+  };
+
+  // Reset wallet type when user signs out
+  useEffect(() => {
+    if (!user && !isCoinbaseConnected) {
+      setWalletType(null);
+    }
+  }, [user, isCoinbaseConnected]);
+
+  // Check if any wallet is connected
+  const isAnyWalletConnected = user || isCoinbaseConnected;
+
   return (
     <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
@@ -93,8 +130,8 @@ const Header: React.FC<HeaderProps> = ({ pageType = "game" }) => {
             <></>
           )}
 
-          {/* Show profile if user is logged in, otherwise show auth */}
-          {user ? (
+          {/* Show profile if any wallet is connected, otherwise show auth */}
+          {isAnyWalletConnected ? (
             <div className="relative" ref={dropdownRef}>
               <Button
                 variant="ghost"
@@ -105,7 +142,11 @@ const Header: React.FC<HeaderProps> = ({ pageType = "game" }) => {
                   <User className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                 </div>
                 <span className="text-sm font-medium text-slate-900 dark:text-white">
-                  {user.email || user.name || "User"}
+                  {user?.email ||
+                    user?.name ||
+                    (coinbaseAddress
+                      ? `${coinbaseAddress.slice(0, 6)}...${coinbaseAddress.slice(-4)}`
+                      : "User")}
                 </span>
                 <ChevronDown className="w-4 h-4 text-slate-500" />
               </Button>
@@ -117,10 +158,31 @@ const Header: React.FC<HeaderProps> = ({ pageType = "game" }) => {
               )}
             </div>
           ) : (
-            <CivicAuth />
+            <div className="flex items-center gap-2">
+              {walletType === "coinbase" ? (
+                <ConnectWallet />
+              ) : walletType === "civic" ? (
+                <CivicAuth />
+              ) : (
+                <Button
+                  onClick={handleWalletSelection}
+                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                >
+                  Sign In
+                </Button>
+              )}
+            </div>
           )}
         </div>
       </div>
+
+      {/* Wallet Selection Modal */}
+      <WalletSelectionModal
+        isOpen={showWalletSelection}
+        onClose={() => setShowWalletSelection(false)}
+        onSelectCivic={handleSelectCivic}
+        onSelectCoinbase={handleSelectCoinbase}
+      />
     </header>
   );
 };
