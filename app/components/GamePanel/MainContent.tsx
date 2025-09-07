@@ -4,7 +4,7 @@ import { MarketItem } from "./types";
 import GameCard from "./GameCard";
 import { WalletInfo } from "../CivicAuth";
 import { Profile } from "../Profile";
-import { useUser } from "@civic/auth/react";
+import { useUser } from "@civic/auth-web3/react";
 
 interface MainContentProps {
   open: boolean;

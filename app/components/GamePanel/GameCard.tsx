@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { MarketItem } from "./types";
 import { twMerge } from "tailwind-merge";
 
