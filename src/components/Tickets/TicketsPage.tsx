@@ -85,39 +85,54 @@ const TicketsPage: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false);
 
   const { writeContract } = useWriteContract();
+  const { address: wagmiAddress } = useAccount();
+  const config = useConfig();
 
   const handleSelectPlan = (planId: string) => {
     setSelectedPlan(planId);
   };
-
-  const config = useConfig();
 
   const handlePurchase = async (plan: TicketPlan) => {
     if (!wagmiAddress) {
       toast.error("Please connect your wallet");
       return;
     }
+
+    console.log("Starting ticket purchase:", {
+      plan,
+      walletAddress: wagmiAddress,
+      contractAddress: TICKET_CONTRACT_ADDRESS,
+    });
+
     setIsProcessing(true);
     try {
       const txHash = await writeContract({
         abi: TICKET_ABI,
         address: TICKET_CONTRACT_ADDRESS,
-        functionName: "buyTicket",
+        functionName: "buyTickets",
         args: [plan.tokens],
       });
+
+      console.log("Transaction hash:", txHash);
+      toast.info("Transaction submitted, waiting for confirmation...");
 
       // @ts-ignore
       const receipt = await waitForTransactionReceipt(config, {
         hash: txHash,
       });
 
+      console.log("Transaction receipt:", receipt);
+
       if (receipt.status !== "success") {
         toast.error("Transaction failed");
       } else {
-        toast.success("Transaction successful");
+        toast.success("Transaction successful! Tickets purchased.");
       }
     } catch (error) {
-      toast.error("Purchase failed");
+      console.error("Purchase failed:", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown error";
+      toast.error(`Purchase failed: ${errorMessage}`);
     } finally {
       setIsProcessing(false);
     }
@@ -155,8 +170,6 @@ const TicketsPage: React.FC = () => {
         };
     }
   };
-
-  const { address: wagmiAddress } = useAccount();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900 text-slate-900 dark:text-white">

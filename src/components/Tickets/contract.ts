@@ -1,2 +1,2 @@
 export const TICKET_CONTRACT_ADDRESS =
-  "0x45b3d975bdcd5f792a923971f599a2fa4a317c1a ";
+  "0x45b3d975bdcd5f792a923971f599a2fa4a317c1a";
