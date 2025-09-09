@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { Leaderboard, mockLeaderboardData } from "../components/Leaderboard";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import { Leaderboard, mockLeaderboardData } from "../../components/Leaderboard";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 const LeaderboardPage: React.FC = () => {
   const handlePlayerClick = (player: any) => {

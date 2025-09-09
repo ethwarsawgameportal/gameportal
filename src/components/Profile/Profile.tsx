@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { useUser } from "@civic/auth-web3/react";
-import { Button } from "@/src/components/ui/button";
+
+import { Button } from "../../components/ui/button";
 import {
   Card,
   CardContent,
@@ -19,7 +19,7 @@ import {
   ExternalLink,
   LogOut,
 } from "lucide-react";
-import { useWallet } from "@civic/auth-web3/react";
+
 import { useAccount, useDisconnect } from "wagmi";
 
 interface ProfileProps {
@@ -31,30 +31,23 @@ export const Profile: React.FC<ProfileProps> = ({
   variant = "full",
   className = "",
 }) => {
-  const userContext = useUser();
-  const { user, signOut } = userContext;
+  const { address } = useAccount();
+  const { disconnect } = useDisconnect();
+
   const { address: coinbaseAddress, isConnected: isCoinbaseConnected } =
     useAccount();
-  const { disconnect } = useDisconnect();
   const [copied, setCopied] = useState(false);
 
   // Always call the hook (React rules)
-  const civicWallet = useWallet({ type: "ethereum" });
 
-  // Safely get wallet info with error handling
-  let address: string | undefined;
   let isConnected = false;
   let walletType = "Unknown";
 
   // Determine wallet type and address
-  if (user && civicWallet) {
-    // Civic Auth user
-    address = civicWallet?.address;
-    isConnected = !!civicWallet?.address;
+  if (address) {
+    isConnected = !!address;
     walletType = "Civic Embedded";
   } else if (isCoinbaseConnected && coinbaseAddress) {
-    // Coinbase wallet user
-    address = coinbaseAddress;
     isConnected = true;
     walletType = "Coinbase Wallet";
   }
@@ -72,7 +65,7 @@ export const Profile: React.FC<ProfileProps> = ({
   };
 
   // Don't render if no wallet is connected
-  if (!user && !isCoinbaseConnected) {
+  if (!address && !isCoinbaseConnected) {
     return null;
   }
 
@@ -85,8 +78,7 @@ export const Profile: React.FC<ProfileProps> = ({
           </div>
           <div className="flex flex-col">
             <span className="text-sm font-medium text-slate-900 dark:text-white">
-              {user?.email ||
-                user?.name ||
+              {address ||
                 (coinbaseAddress
                   ? `${coinbaseAddress.slice(0, 6)}...${coinbaseAddress.slice(-4)}`
                   : "User")}
@@ -97,7 +89,7 @@ export const Profile: React.FC<ProfileProps> = ({
               </span>
             ) : (
               <span className="text-xs text-slate-500 dark:text-slate-400">
-                {user ? "Identity Verified" : "Wallet Connected"}
+                {address ? "Identity Verified" : "Wallet Connected"}
               </span>
             )}
           </div>
@@ -108,14 +100,14 @@ export const Profile: React.FC<ProfileProps> = ({
             className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
           >
             <CheckCircle className="w-3 h-3 mr-1" />
-            {user ? "Verified" : "Connected"}
+            {address ? "Verified" : "Connected"}
           </Badge>
           <Button
             variant="ghost"
             size="sm"
             onClick={() => {
-              if (user && signOut) {
-                signOut();
+              if (address) {
+                disconnect();
               } else if (isCoinbaseConnected) {
                 disconnect();
               }
@@ -141,22 +133,22 @@ export const Profile: React.FC<ProfileProps> = ({
       <CardContent className="space-y-4 pt-6">
         {/* User Info */}
         <div className="space-y-2">
-          {user && (
+          {address && (
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
                 Email
               </span>
               <div className="flex items-center gap-2">
                 <span className="text-sm text-slate-900 dark:text-white">
-                  {user.email || "Not provided"}
+                  {address || "Not provided"}
                 </span>
-                {user.email && (
+                {address && (
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => {
-                      if (user.email) {
-                        navigator.clipboard.writeText(user.email);
+                      if (address) {
+                        navigator.clipboard.writeText(address);
                         setCopied(true);
                         setTimeout(() => setCopied(false), 2000);
                       }
@@ -173,13 +165,13 @@ export const Profile: React.FC<ProfileProps> = ({
               </div>
             </div>
           )}
-          {user && (
+          {address && (
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
                 Name
               </span>
               <span className="text-sm text-slate-900 dark:text-white">
-                {user.name || "Not provided"}
+                {address || "Not provided"}
               </span>
             </div>
           )}
@@ -192,7 +184,7 @@ export const Profile: React.FC<ProfileProps> = ({
               className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
             >
               <CheckCircle className="w-3 h-3 mr-1" />
-              {user ? "Verified" : "Connected"}
+              {address ? "Verified" : "Connected"}
             </Badge>
           </div>
         </div>
@@ -333,8 +325,8 @@ export const Profile: React.FC<ProfileProps> = ({
           <Button
             variant="outline"
             onClick={() => {
-              if (user && signOut) {
-                signOut();
+              if (address) {
+                disconnect();
               } else if (isCoinbaseConnected) {
                 disconnect();
               }
@@ -342,7 +334,7 @@ export const Profile: React.FC<ProfileProps> = ({
             className="w-full flex items-center gap-2 text-red-600 border-red-200 hover:bg-red-50 dark:border-red-800 dark:hover:bg-red-900/20"
           >
             <LogOut className="w-4 h-4" />
-            {user ? "Sign Out" : "Disconnect"}
+            {address ? "Sign Out" : "Disconnect"}
           </Button>
         </div>
       </CardContent>
