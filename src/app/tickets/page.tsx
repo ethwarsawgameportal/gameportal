@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { TicketsPage } from "../../components/Tickets";
 
 export const metadata: Metadata = {
-  title: "Vibeez Arcade - Tickets",
+  title: "Winfinity - Tickets",
   description:
-    "Manage your gaming tickets in Vibeez Arcade! View your ticket collection, purchase new tickets, and participate in exclusive blockchain gaming events.",
+    "Manage your gaming tickets in Winfinity! View your ticket collection, purchase new tickets, and participate in exclusive blockchain gaming events.",
   keywords: [
     "tickets",
     "gaming tickets",
@@ -15,9 +15,9 @@ export const metadata: Metadata = {
     "NFT tickets",
   ],
   openGraph: {
-    title: "Vibeez Arcade - Tickets",
+    title: "Winfinity - Tickets",
     description:
-      "Manage your gaming tickets in Vibeez Arcade! View your collection and participate in exclusive events.",
+      "Manage your gaming tickets in Winfinity! View your collection and participate in exclusive events.",
     type: "website",
   },
 };

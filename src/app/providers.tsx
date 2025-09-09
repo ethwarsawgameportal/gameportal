@@ -29,10 +29,10 @@ createAppKit({
   projectId,
   themeMode: "light",
   metadata: {
-    name: "Vibezz",
-    description: "Vibezz",
-    url: "https://vibeez.com",
-    icons: ["https://vibeez.com/favicon.png"],
+    name: "Winfinity",
+    description: "Winfinity",
+    url: "https://winfinity-gaming.vercel.app",
+    icons: ["https://winfinity-gaming.vercel.app/favicon.png"],
   },
 });
 

@@ -65,7 +65,7 @@ const Hero: React.FC = () => {
           >
             <Badge className="gap-2" variant="secondary">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              On Base — L2 ready
+              Multi-Chain Ready
             </Badge>
           </motion.div>
 
@@ -75,7 +75,7 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            Vibeez Arcade on Base
+            Winfinity Gaming Platform
           </motion.h1>
 
           <motion.p
@@ -86,7 +86,7 @@ const Hero: React.FC = () => {
           >
             Play exciting arcade games and earn rewards! Our gaming portal
             brings classic and modern games to Web3, powered by the fast and
-            affordable Base network.
+            affordable blockchain networks.
           </motion.p>
 
           <motion.div

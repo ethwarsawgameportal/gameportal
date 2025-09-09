@@ -43,7 +43,7 @@
 //         />
 //         <RoadmapItem
 //           q="Q4 2025"
-//           title="Base Mainnet"
+//           title="Winfinity Mainnet"
 //           points={[
 //             "UI/UX 1.0 launch",
 //             "Bridges and on-ramps",

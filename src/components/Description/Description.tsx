@@ -63,12 +63,12 @@ const Description: React.FC = () => (
       >
         <Card className="shadow-sm">
           <CardHeader>
-            <CardTitle>Why Base?</CardTitle>
+            <CardTitle>Why Winfinity?</CardTitle>
           </CardHeader>
           <CardContent className="text-slate-600 dark:text-slate-300 leading-relaxed">
-            Base is an efficient Layer 2 in the Ethereum ecosystem, providing
-            low fees, high throughput, and smooth on-ramp to the Web3 world —
-            perfect for mass adoption.
+            Winfinity is a comprehensive Web3 gaming platform providing low
+            fees, high throughput, and smooth on-ramp to the Web3 world —
+            perfect for mass adoption of blockchain gaming.
           </CardContent>
         </Card>
       </motion.div>

@@ -274,7 +274,7 @@ export const Profile: React.FC<ProfileProps> = ({
                     Network
                   </span>
                   <span className="text-sm text-blue-700 dark:text-blue-300">
-                    Base
+                    Winfinity
                   </span>
                 </div>
                 <div className="flex items-center justify-between">

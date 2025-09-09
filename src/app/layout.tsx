@@ -12,7 +12,7 @@ export const viewport: Viewport = {
 export async function generateMetadata(): Promise<Metadata> {
   const URL = process.env.NEXT_PUBLIC_URL;
   return {
-    title: "Vibeez Arcade",
+    title: "Winfinity",
     description:
       "Play classic arcade games on the blockchain. Experience Tetris, Chess, Checkers and more in the ultimate Web3 gaming platform.",
     other: {
@@ -20,10 +20,10 @@ export async function generateMetadata(): Promise<Metadata> {
         version: "next",
         imageUrl: process.env.NEXT_PUBLIC_APP_HERO_IMAGE,
         button: {
-          title: "Launch Vibeez Arcade",
+          title: "Launch Winfinity",
           action: {
             type: "launch_frame",
-            name: "Vibeez Arcade",
+            name: "Winfinity",
             url: URL,
             splashImageUrl: process.env.NEXT_PUBLIC_SPLASH_IMAGE,
             splashBackgroundColor:

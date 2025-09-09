@@ -77,7 +77,7 @@ const HowItWorks: React.FC = () => (
           >
             <Step
               n={4}
-              title="Finalization on Base"
+              title="Finalization on Winfinity"
               text="Fast confirmations and low costs thanks to Layer 2."
             />
           </motion.div>

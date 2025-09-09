@@ -26,7 +26,7 @@ const PageShell: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   </div>
 );
 
-const LandingDappOnBase: React.FC = () => {
+const LandingDappOnWinfinity: React.FC = () => {
   return (
     <PageShell>
       <Hero />
@@ -46,4 +46,4 @@ const LandingDappOnBase: React.FC = () => {
   );
 };
 
-export default LandingDappOnBase;
+export default LandingDappOnWinfinity;

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import LandingDappOnBase from "../components/MainApp/MainApp";
+import LandingDappOnWinfinity from "../components/MainApp/MainApp";
 
 export const metadata: Metadata = {
-  title: "Vibeez Arcade - Home",
+  title: "Winfinity - Home",
   description:
-    "Welcome to Vibeez Arcade! Play classic arcade games on the blockchain. Experience Tetris, Chess, Checkers and more in the ultimate Web3 gaming platform.",
+    "Welcome to Winfinity! Play classic arcade games on the blockchain. Experience Tetris, Chess, Checkers and more in the ultimate Web3 gaming platform.",
   keywords: [
     "arcade games",
     "blockchain gaming",
@@ -15,13 +15,13 @@ export const metadata: Metadata = {
     "crypto games",
   ],
   openGraph: {
-    title: "Vibeez Arcade - Home",
+    title: "Winfinity - Home",
     description:
-      "Welcome to Vibeez Arcade! Play classic arcade games on the blockchain.",
+      "Welcome to Winfinity! Play classic arcade games on the blockchain.",
     type: "website",
   },
 };
 
 export default function App() {
-  return <LandingDappOnBase />;
+  return <LandingDappOnWinfinity />;
 }
