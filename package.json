@@ -28,6 +28,7 @@
     "next": "^15.3.3",
     "react": "^18",
     "react-dom": "^18",
+    "react-icons": "^5.5.0",
     "react-tetris": "^0.4.0",
     "sonner": "^2.0.7",
     "swiper": "^11.2.10",
